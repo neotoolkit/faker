@@ -1,0 +1,10 @@
+name: build
+
+on:
+  pull_request:
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  build:
+    uses: go-dummy/.github/.github/workflows/build.yml@main
