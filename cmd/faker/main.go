@@ -4,7 +4,7 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/go-dummy/faker"
+	"github.com/neotoolkit/faker"
 )
 
 func main() {

@@ -1,4 +1,4 @@
-module github.com/go-dummy/faker
+module github.com/neotoolkit/faker
 
 go 1.17
 

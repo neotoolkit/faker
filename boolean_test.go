@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/go-dummy/faker"
+	"github.com/neotoolkit/faker"
 )
 
 func TestBoolean_Boolean(t *testing.T) {
