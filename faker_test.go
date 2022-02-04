@@ -11,11 +11,33 @@ import (
 
 func TestIntBetween(t *testing.T) {
 	f := faker.NewFaker()
-	value := f.IntBetween(1, 100)
 
-	require.Equal(t, fmt.Sprintf("%T", value), "int")
-	require.True(t, value >= 1)
-	require.True(t, value <= 100)
+	tests := []struct {
+		name string
+		min  int
+		max  int
+	}{
+		{
+			name: "",
+			min:  1,
+			max:  100,
+		},
+		{
+			name: "",
+			min:  1,
+			max:  1,
+		},
+	}
+
+	for _, tc := range tests {
+		t.Run(tc.name, func(t *testing.T) {
+			value := f.IntBetween(tc.min, tc.max)
+
+			require.Equal(t, fmt.Sprintf("%T", value), "int")
+			require.True(t, value >= tc.min)
+			require.True(t, value <= tc.max)
+		})
+	}
 }
 
 func TestByName(t *testing.T) {
