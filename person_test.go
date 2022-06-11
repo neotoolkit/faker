@@ -4,8 +4,6 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stretchr/testify/require"
-
 	"github.com/neotoolkit/faker"
 )
 
@@ -13,7 +11,9 @@ func TestPerson_FirstName(t *testing.T) {
 	f := faker.NewFaker()
 	firstName := f.Person().FirstName()
 
-	require.True(t, len(firstName) > 0)
+	if len(firstName) == 0 {
+		t.Fatal("firstName is empty")
+	}
 }
 
 func TestPerson_LastName(t *testing.T) {
@@ -21,14 +21,18 @@ func TestPerson_LastName(t *testing.T) {
 	p := f.Person()
 	lastName := p.LastName()
 
-	require.True(t, len(lastName) > 0)
+	if len(lastName) == 0 {
+		t.Fatal("lastName is empty")
+	}
 }
 
 func TestPerson_FirstNameMale(t *testing.T) {
 	f := faker.NewFaker()
 	firstNameMale := f.Person().FirstNameMale()
 
-	require.True(t, len(firstNameMale) > 0)
+	if len(firstNameMale) == 0 {
+		t.Fatal("firstNameMale is empty")
+	}
 }
 
 func TestPerson_FirstNameFemale(t *testing.T) {
@@ -36,7 +40,9 @@ func TestPerson_FirstNameFemale(t *testing.T) {
 	p := f.Person()
 	firstNameFemale := p.FirstNameFemale()
 
-	require.True(t, len(firstNameFemale) > 0)
+	if len(firstNameFemale) == 0 {
+		t.Fatal("firstNameFemale is empty")
+	}
 }
 
 func TestPerson_Name(t *testing.T) {
@@ -44,10 +50,21 @@ func TestPerson_Name(t *testing.T) {
 	p := f.Person()
 	name := p.Name()
 
-	require.True(t, len(name) > 0)
-	require.False(t, strings.Contains(name, "{{FirstNameMale}}"))
-	require.False(t, strings.Contains(name, "{{FirstNameFemale}}"))
-	require.False(t, strings.Contains(name, "{{LastName}}"))
+	if len(name) == 0 {
+		t.Fatal("name is empty")
+	}
+
+	if strings.Contains(name, "{{FirstNameMale}}") {
+		t.Fatal("name is format")
+	}
+
+	if strings.Contains(name, "{{FirstNameFemale}}") {
+		t.Fatal("name is format")
+	}
+
+	if strings.Contains(name, "{{LastName}}") {
+		t.Fatal("name is format")
+	}
 }
 
 func TestPerson_NameMale(t *testing.T) {
@@ -55,7 +72,9 @@ func TestPerson_NameMale(t *testing.T) {
 	p := f.Person()
 	nameMale := p.NameMale()
 
-	require.True(t, len(nameMale) > 0)
+	if len(nameMale) == 0 {
+		t.Fatal("nameMale is empty")
+	}
 }
 
 func TestPerson_NameFemale(t *testing.T) {
@@ -63,7 +82,9 @@ func TestPerson_NameFemale(t *testing.T) {
 	p := f.Person()
 	nameFemale := p.NameFemale()
 
-	require.True(t, len(nameFemale) > 0)
+	if len(nameFemale) == 0 {
+		t.Fatal("nameFemale is empty")
+	}
 }
 
 func TestPerson_Gender(t *testing.T) {
@@ -71,7 +92,9 @@ func TestPerson_Gender(t *testing.T) {
 	p := f.Person()
 	gender := p.Gender()
 
-	require.True(t, gender == "Male" || gender == "Female")
+	if !(gender == "Male" || gender == "Female") {
+		t.Fatal("gender must be male or female")
+	}
 }
 
 func TestPerson_GenderMale(t *testing.T) {
@@ -79,7 +102,9 @@ func TestPerson_GenderMale(t *testing.T) {
 	p := f.Person()
 	genderMale := p.GenderMale()
 
-	require.True(t, genderMale == "Male")
+	if genderMale != "Male" {
+		t.Fatal("genderMale must be male")
+	}
 }
 
 func TestPerson_GenderFemale(t *testing.T) {
@@ -87,5 +112,7 @@ func TestPerson_GenderFemale(t *testing.T) {
 	p := f.Person()
 	genderFemale := p.GenderFemale()
 
-	require.True(t, genderFemale == "Female")
+	if genderFemale != "Female" {
+		t.Fatal("genderFemale must be female")
+	}
 }

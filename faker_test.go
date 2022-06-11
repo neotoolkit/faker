@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/stretchr/testify/require"
-
 	"github.com/neotoolkit/faker"
 )
 
@@ -33,9 +31,19 @@ func TestIntBetween(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			value := f.IntBetween(tc.min, tc.max)
 
-			require.Equal(t, fmt.Sprintf("%T", value), "int")
-			require.True(t, value >= tc.min)
-			require.True(t, value <= tc.max)
+			valueType := fmt.Sprintf("%T", value)
+
+			if valueType != "int" {
+				t.Fatalf("value type want int, got %T", value)
+			}
+
+			if value < tc.min {
+				t.Fatalf("value must be less %d", tc.min)
+			}
+
+			if value > tc.max {
+				t.Fatalf("value must be greater %d", tc.max)
+			}
 		})
 	}
 }
@@ -156,7 +164,9 @@ func TestByName(t *testing.T) {
 			f := faker.NewFaker()
 			got := f.ByName(tc.faker)
 
-			require.True(t, got != nil)
+			if nil == got {
+				t.Fatal("faker by name is nil")
+			}
 		})
 	}
 }

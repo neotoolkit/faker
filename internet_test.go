@@ -1,10 +1,7 @@
 package faker_test
 
 import (
-	"strings"
 	"testing"
-
-	"github.com/stretchr/testify/require"
 
 	"github.com/neotoolkit/faker"
 )
@@ -13,27 +10,34 @@ func TestUsername(t *testing.T) {
 	i := faker.NewFaker().Internet()
 	username := i.Username()
 
-	require.Equal(t, true, len(username) > 0)
-	require.Equal(t, false, strings.Contains(username, " "))
+	if len(username) == 0 {
+		t.Fatal("username is empty")
+	}
 }
 
 func TestGTLD(t *testing.T) {
 	i := faker.NewFaker().Internet()
 	gTLD := i.GTLD()
 
-	require.True(t, len(gTLD) > 0)
+	if len(gTLD) == 0 {
+		t.Fatal("gTLD is empty")
+	}
 }
 
 func TestDomain(t *testing.T) {
 	i := faker.NewFaker().Internet()
 	d := i.Domain()
 
-	require.True(t, len(d) > 0)
+	if len(d) == 0 {
+		t.Fatal("domain is empty")
+	}
 }
 
 func TestEmail(t *testing.T) {
 	i := faker.NewFaker().Internet()
 	e := i.Email()
 
-	require.True(t, len(e) > 0)
+	if len(e) == 0 {
+		t.Fatal("domain is empty")
+	}
 }
