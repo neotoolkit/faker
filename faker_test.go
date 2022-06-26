@@ -167,8 +167,7 @@ func TestByName(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			t.Parallel()
 
-			f := faker.NewFaker()
-			got := f.ByName(tc.faker)
+			got := faker.NewFaker().ByName(tc.faker)
 
 			if nil == got {
 				t.Error("faker by name is nil")
