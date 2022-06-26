@@ -1,6 +1,9 @@
 package faker
 
-import "strings"
+import (
+	"net"
+	"strings"
+)
 
 // Internet is struct for Internet
 type Internet struct {
@@ -42,4 +45,24 @@ func (i Internet) Domain() string {
 // Email returns random email
 func (i Internet) Email() string {
 	return i.Username() + "@" + i.Domain()
+}
+
+// IPv4 returns random IP v4 address
+func (i Internet) IPv4() string {
+	size := 4
+	ip := make([]byte, size)
+	for idx := 0; idx < size; idx++ {
+		ip[idx] = byte(i.Faker.IntBetween(0, 256))
+	}
+	return net.IP(ip).To4().String()
+}
+
+// IPv6 returns random IP v6 address
+func (i Internet) IPv6() string {
+	size := 16
+	ip := make([]byte, size)
+	for idx := 0; idx < size; idx++ {
+		ip[idx] = byte(i.Faker.IntBetween(0, 256))
+	}
+	return net.IP(ip).To16().String()
 }
