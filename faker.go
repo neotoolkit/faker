@@ -213,7 +213,7 @@ func (f Faker) Asciify(in string) string {
 }
 
 // ByName returns random data by faker
-func (f Faker) ByName(faker string) interface{} {
+func (f Faker) ByName(faker string) any {
 	switch strings.ToLower(faker) {
 	// Boolean
 	case "boolean":
