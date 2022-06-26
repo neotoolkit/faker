@@ -10,10 +10,12 @@ import (
 func TestUUID_v4(t *testing.T) {
 	f := faker.NewFaker()
 	value := f.UUID().V4()
+
 	match, err := regexp.MatchString("^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$", value)
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if !match {
 		t.Fatal("want true, got false")
 	}
