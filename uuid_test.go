@@ -13,11 +13,11 @@ func TestUUID_v4(t *testing.T) {
 
 	match, err := regexp.MatchString("^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$", value)
 	if err != nil {
-		t.Fatal(err)
+		t.Error(err)
 	}
 
 	if !match {
-		t.Fatal("want true, got false")
+		t.Error("want true, got false")
 	}
 }
 
@@ -27,6 +27,6 @@ func TestUUID_V4UniqueInSequence(t *testing.T) {
 	current := f.UUID().V4()
 
 	if last == current {
-		t.Fatal("want unique uuid")
+		t.Error("want unique uuid")
 	}
 }

@@ -8,27 +8,30 @@ import (
 )
 
 func TestIntBetween(t *testing.T) {
+	t.Parallel()
+
 	f := faker.NewFaker()
 
-	tests := []struct {
+	for _, tc := range []struct {
 		name string
 		min  int
 		max  int
 	}{
 		{
-			name: "",
+			name: "min 1, max 100",
 			min:  1,
 			max:  100,
 		},
 		{
-			name: "",
+			name: "min 1, max 1",
 			min:  1,
 			max:  1,
 		},
-	}
-
-	for _, tc := range tests {
+	} {
+		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
 			value := f.IntBetween(tc.min, tc.max)
 
 			valueType := fmt.Sprintf("%T", value)
@@ -49,7 +52,9 @@ func TestIntBetween(t *testing.T) {
 }
 
 func TestByName(t *testing.T) {
-	tests := []struct {
+	t.Parallel()
+
+	for _, tc := range []struct {
 		name  string
 		faker string
 	}{
@@ -157,15 +162,16 @@ func TestByName(t *testing.T) {
 			name:  "",
 			faker: "UUID",
 		},
-	}
-
-	for _, tc := range tests {
+	} {
+		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
 			f := faker.NewFaker()
 			got := f.ByName(tc.faker)
 
 			if nil == got {
-				t.Fatal("faker by name is nil")
+				t.Error("faker by name is nil")
 			}
 		})
 	}
