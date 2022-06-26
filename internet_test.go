@@ -11,7 +11,7 @@ func TestUsername(t *testing.T) {
 	username := i.Username()
 
 	if len(username) == 0 {
-		t.Fatal("username is empty")
+		t.Error("username is empty")
 	}
 }
 
@@ -20,7 +20,7 @@ func TestGTLD(t *testing.T) {
 	gTLD := i.GTLD()
 
 	if len(gTLD) == 0 {
-		t.Fatal("gTLD is empty")
+		t.Error("GTLD is empty")
 	}
 }
 
@@ -29,7 +29,7 @@ func TestDomain(t *testing.T) {
 	d := i.Domain()
 
 	if len(d) == 0 {
-		t.Fatal("domain is empty")
+		t.Error("domain is empty")
 	}
 }
 
@@ -38,6 +38,6 @@ func TestEmail(t *testing.T) {
 	e := i.Email()
 
 	if len(e) == 0 {
-		t.Fatal("domain is empty")
+		t.Error("email is empty")
 	}
 }
