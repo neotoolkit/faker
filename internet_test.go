@@ -7,8 +7,7 @@ import (
 )
 
 func TestUsername(t *testing.T) {
-	i := faker.NewFaker().Internet()
-	username := i.Username()
+	username := faker.NewFaker().Internet().Username()
 
 	if len(username) == 0 {
 		t.Error("username is empty")
@@ -16,8 +15,7 @@ func TestUsername(t *testing.T) {
 }
 
 func TestGTLD(t *testing.T) {
-	i := faker.NewFaker().Internet()
-	gTLD := i.GTLD()
+	gTLD := faker.NewFaker().Internet().GTLD()
 
 	if len(gTLD) == 0 {
 		t.Error("GTLD is empty")
@@ -25,8 +23,7 @@ func TestGTLD(t *testing.T) {
 }
 
 func TestDomain(t *testing.T) {
-	i := faker.NewFaker().Internet()
-	d := i.Domain()
+	d := faker.NewFaker().Internet().Domain()
 
 	if len(d) == 0 {
 		t.Error("domain is empty")
@@ -34,8 +31,7 @@ func TestDomain(t *testing.T) {
 }
 
 func TestEmail(t *testing.T) {
-	i := faker.NewFaker().Internet()
-	e := i.Email()
+	e := faker.NewFaker().Internet().Email()
 
 	if len(e) == 0 {
 		t.Error("email is empty")

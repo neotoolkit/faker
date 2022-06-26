@@ -4,12 +4,15 @@ import "strings"
 
 // Internet is struct for Internet
 type Internet struct {
-	Faker *Faker
+	Faker          *Faker
+	usernameFormat []string
+	// Generic top-level domain
+	gTLD []string
 }
 
 // Username returns random username
 func (i Internet) Username() string {
-	username := i.Faker.RandomStringElement(i.Faker.usernameFormat)
+	username := i.Faker.RandomStringElement(i.usernameFormat)
 
 	p := i.Faker.Person()
 
@@ -28,12 +31,12 @@ func (i Internet) Username() string {
 
 // GTLD returns random generic top-level domain
 func (i Internet) GTLD() string {
-	return i.Faker.RandomStringElement(i.Faker.gTLD)
+	return i.Faker.RandomStringElement(i.gTLD)
 }
 
 // Domain returns random domain
 func (i Internet) Domain() string {
-	return strings.Join([]string{i.Faker.Asciify("***"), i.GTLD()}, ".")
+	return i.Faker.Asciify("***") + "." + i.GTLD()
 }
 
 // Email returns random email

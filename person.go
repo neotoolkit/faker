@@ -6,21 +6,26 @@ import (
 
 // Person is struct for Person
 type Person struct {
-	Faker *Faker
+	Faker            *Faker
+	firstNameMale    []string
+	firstNameFemale  []string
+	lastName         []string
+	maleNameFormat   []string
+	femaleNameFormat []string
 }
 
 // FirstName returns random first name
 func (p Person) FirstName() string {
-	firstName := make([]string, len(p.Faker.firstNameMale)+len(p.Faker.firstNameFemale))
+	firstName := make([]string, len(p.firstNameMale)+len(p.firstNameFemale))
 	i := 0
 
-	for j := 0; j < len(p.Faker.firstNameMale); j++ {
-		firstName[i] = p.Faker.firstNameMale[j]
+	for j := 0; j < len(p.firstNameMale); j++ {
+		firstName[i] = p.firstNameMale[j]
 		i++
 	}
 
-	for j := 0; j < len(p.Faker.firstNameFemale); j++ {
-		firstName[i] = p.Faker.firstNameFemale[j]
+	for j := 0; j < len(p.firstNameFemale); j++ {
+		firstName[i] = p.firstNameFemale[j]
 		i++
 	}
 
@@ -29,34 +34,34 @@ func (p Person) FirstName() string {
 
 // LastName returns random last name
 func (p Person) LastName() string {
-	i := p.Faker.IntBetween(0, len(p.Faker.lastName)-1)
-	return p.Faker.lastName[i]
+	i := p.Faker.IntBetween(0, len(p.lastName)-1)
+	return p.lastName[i]
 }
 
 // FirstNameMale returns random male first name
 func (p Person) FirstNameMale() string {
-	i := p.Faker.IntBetween(0, len(p.Faker.firstNameMale)-1)
-	return p.Faker.firstNameMale[i]
+	i := p.Faker.IntBetween(0, len(p.firstNameMale)-1)
+	return p.firstNameMale[i]
 }
 
 // FirstNameFemale returns random female first name
 func (p Person) FirstNameFemale() string {
-	i := p.Faker.IntBetween(0, len(p.Faker.firstNameFemale)-1)
-	return p.Faker.firstNameFemale[i]
+	i := p.Faker.IntBetween(0, len(p.firstNameFemale)-1)
+	return p.firstNameFemale[i]
 }
 
 // Name returns random name
 func (p Person) Name() string {
-	format := make([]string, len(p.Faker.maleNameFormat)+len(p.Faker.femaleNameFormat))
+	format := make([]string, len(p.maleNameFormat)+len(p.femaleNameFormat))
 	i := 0
 
-	for j := 0; j < len(p.Faker.maleNameFormat); j++ {
-		format[i] = p.Faker.maleNameFormat[j]
+	for j := 0; j < len(p.maleNameFormat); j++ {
+		format[i] = p.maleNameFormat[j]
 		i++
 	}
 
-	for j := 0; j < len(p.Faker.femaleNameFormat); j++ {
-		format[i] = p.Faker.femaleNameFormat[j]
+	for j := 0; j < len(p.femaleNameFormat); j++ {
+		format[i] = p.femaleNameFormat[j]
 		i++
 	}
 
