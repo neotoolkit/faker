@@ -24,4 +24,3 @@ linters:
     - unparam
     - unused
     - varcheck
-    - wsl
