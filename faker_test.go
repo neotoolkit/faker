@@ -2,6 +2,7 @@ package faker_test
 
 import (
 	"fmt"
+	"regexp"
 	"testing"
 
 	"github.com/neotoolkit/faker"
@@ -171,6 +172,51 @@ func TestByName(t *testing.T) {
 
 			if nil == got {
 				t.Error("faker by name is nil")
+			}
+		})
+	}
+}
+
+func TestFaker_Numerify(t *testing.T) {
+	for _, tc := range []struct {
+		name string
+		expr string
+		in   string
+	}{
+		{
+			name: "",
+			expr: "",
+			in:   "",
+		},
+		{
+			name: "",
+			expr: "[1-9][A-Z][1-9]",
+			in:   "*A*",
+		},
+		{
+			name: "",
+			expr: "[A-Z][A-Z][A-Z]",
+			in:   "AAA",
+		},
+		{
+			name: "",
+			expr: "[1-9][1-9][1-9][1-9][1-9]",
+			in:   "*****",
+		},
+	} {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+
+			r, err := regexp.Compile(tc.expr)
+			if err != nil {
+				t.Error(err)
+			}
+
+			n := faker.NewFaker().Numerify(tc.in)
+
+			if !r.MatchString(n) {
+				t.Errorf("%s not match %s", n, tc.expr)
 			}
 		})
 	}
