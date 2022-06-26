@@ -9,6 +9,7 @@
 Fake data generator
 
 ## Features
+- Zero dependencies
 - Supports data `boolean`, `username`, `domain`, `email`, `firstname`, `lastname`, `name`, `gender`, `uuid`
 - Easy to integrate.
 
