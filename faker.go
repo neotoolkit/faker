@@ -101,6 +101,19 @@ func (f Faker) Internet() Internet {
 			"yachts", "yahoo", "yamaxun", "yandex", "ye", "yodobashi", "yoga", "yokohama", "you", "youtube", "yt", "yun",
 			"za", "zappos", "zara", "zero", "zip", "zm", "zone", "zuerich", "zw",
 		},
+		scheme: []string{
+			"http",
+			"https",
+		},
+		urlFormat: []string{
+			"{{scheme}}://{{domain}}",
+			"{{scheme}}://{{domain}}/{{path}}",
+			"{{scheme}}://{{domain}}/{{path}}?{{query}}",
+			"{{scheme}}://{{domain}}/{{path}}?{{query}}#{{fragment}}",
+			"{{scheme}}://www.{{domain}}/{{path}}",
+			"{{scheme}}://www.{{domain}}/{{path}}?{{query}}",
+			"{{scheme}}://www.{{domain}}/{{path}}?{{query}}#{{fragment}}",
+		},
 	}
 }
 
