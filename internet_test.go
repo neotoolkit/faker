@@ -62,3 +62,19 @@ func TestInternet_IPv6(t *testing.T) {
 		t.Errorf("cannot parse %s as IP", ip)
 	}
 }
+
+func TestInternet_Scheme(t *testing.T) {
+	s := faker.NewFaker().Internet().Scheme()
+
+	if len(s) == 0 {
+		t.Error("scheme is empty")
+	}
+}
+
+func TestInternet_URL(t *testing.T) {
+	url := faker.NewFaker().Internet().URL()
+
+	if len(url) == 0 {
+		t.Error("URL is empty")
+	}
+}
