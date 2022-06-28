@@ -278,7 +278,7 @@ func (f Faker) Numerify(in string) string {
 }
 
 // ByName returns random data by faker
-func (f Faker) ByName(faker string) any {
+func (f Faker) ByName(faker string) interface{} {
 	switch strings.ToLower(faker) {
 	// Boolean
 	case "boolean":
