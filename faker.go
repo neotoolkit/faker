@@ -254,9 +254,9 @@ func (f Faker) IntBetween(min, max int) int {
 	return f.Generator.Intn(diff+1) + min
 }
 
-// Number returns a number between a given minimum and maximum values as string
-func (f Faker) Number(min, max int) string {
-	return strconv.Itoa(f.IntBetween(min, max))
+// Number returns a number between a given minimum and maximum values
+func (f Faker) Number(min, max int) int {
+	return f.IntBetween(min, max)
 }
 
 // RandomStringElement returns a random string element from a given list of strings
@@ -351,7 +351,7 @@ func (f Faker) Faker(name string) string {
 		if err != nil {
 			panic(err)
 		}
-		return f.Number(min, max)
+		return strconv.Itoa(f.Number(min, max))
 	}
 
 	return ""
