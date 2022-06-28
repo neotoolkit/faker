@@ -243,7 +243,7 @@ func (f Faker) UUID() UUID {
 	return UUID{Faker: &f}
 }
 
-// IntBetween returns a Int between a given minimum and maximum values
+// IntBetween returns a int between a given minimum and maximum values
 func (f Faker) IntBetween(min, max int) int {
 	diff := max - min
 
@@ -252,6 +252,11 @@ func (f Faker) IntBetween(min, max int) int {
 	}
 
 	return f.Generator.Intn(diff+1) + min
+}
+
+// Number returns a number between a given minimum and maximum values as string
+func (f Faker) Number(min, max int) string {
+	return strconv.Itoa(f.IntBetween(min, max))
 }
 
 // RandomStringElement returns a random string element from a given list of strings
@@ -333,7 +338,21 @@ func (f Faker) Faker(name string) string {
 	// UUID
 	case "uuid":
 		return f.UUID().V4()
-	default:
-		return ""
 	}
+
+	if strings.HasPrefix(strings.ToLower(name), "number(") {
+		args := strings.Trim(name[7:], ")")
+		splitArgs := strings.Split(args, ",")
+		min, err := strconv.Atoi(strings.TrimSpace(splitArgs[0]))
+		if err != nil {
+			panic(err)
+		}
+		max, err := strconv.Atoi(strings.TrimSpace(splitArgs[1]))
+		if err != nil {
+			panic(err)
+		}
+		return f.Number(min, max)
+	}
+
+	return ""
 }

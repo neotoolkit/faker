@@ -163,6 +163,14 @@ func TestByName(t *testing.T) {
 			name:  "",
 			faker: "UUID",
 		},
+		{
+			name:  "",
+			faker: "number(0,9)",
+		},
+		{
+			name:  "",
+			faker: "Number(0,9)",
+		},
 	} {
 		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
