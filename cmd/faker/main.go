@@ -18,5 +18,5 @@ func run() {
 
 	a := flag.Arg(0)
 
-	fmt.Println(f.ByName(a))
+	fmt.Println(f.Faker(a))
 }

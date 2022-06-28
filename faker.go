@@ -277,12 +277,12 @@ func (f Faker) Numerify(in string) string {
 	return out.String()
 }
 
-// ByName returns random data by faker
-func (f Faker) ByName(faker string) interface{} {
-	switch strings.ToLower(faker) {
+// Faker returns random data as string by faker name
+func (f Faker) Faker(name string) string {
+	switch strings.ToLower(name) {
 	// Boolean
 	case "boolean":
-		return f.Boolean().Boolean()
+		return f.Boolean().String()
 	// Internet
 	case "username":
 		return f.Internet().Username()
@@ -317,6 +317,6 @@ func (f Faker) ByName(faker string) interface{} {
 	case "uuid":
 		return f.UUID().V4()
 	default:
-		return nil
+		return ""
 	}
 }
