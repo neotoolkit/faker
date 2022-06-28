@@ -63,6 +63,23 @@ func (f Faker) Boolean() Boolean {
 	return Boolean{Faker: &f}
 }
 
+// Color returns Color instance
+func (f Faker) Color() Color {
+	return Color{
+		Faker: &f,
+		color: []string{
+			"black", "blue",
+			"gray",
+			"green",
+			"purple",
+			"silver",
+			"white",
+			"yellow",
+		},
+		hexLetters: []string{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"},
+	}
+}
+
 // Internet returns Internet instance
 func (f Faker) Internet() Internet {
 	return Internet{
