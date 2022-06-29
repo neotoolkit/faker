@@ -278,6 +278,27 @@ func (f Faker) Asciify(in string) string {
 
 	for i := range in {
 		if in[i] == '*' {
+			if f.Boolean().Boolean() {
+				out.WriteString(fmt.Sprintf("%c", f.IntBetween(65, 90)))
+			} else {
+				out.WriteString(fmt.Sprintf("%c", f.IntBetween(97, 122)))
+			}
+		} else {
+			out.WriteByte(in[i])
+		}
+	}
+
+	return out.String()
+}
+
+// LowerAsciify returns string that replace all "*" characters with random lower ASCII values from a given string
+func (f Faker) LowerAsciify(in string) string {
+	var out strings.Builder
+
+	out.Grow(len(in))
+
+	for i := range in {
+		if in[i] == '*' {
 			out.WriteString(fmt.Sprintf("%c", f.IntBetween(97, 122)))
 		} else {
 			out.WriteByte(in[i])
