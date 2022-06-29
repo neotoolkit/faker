@@ -201,7 +201,7 @@ func TestFaker_Numerify(t *testing.T) {
 		},
 		{
 			name: "",
-			expr: "[1-9][A-Z][1-9]",
+			expr: "[0-9][A-Z][0-9]",
 			in:   "*A*",
 		},
 		{
@@ -211,7 +211,7 @@ func TestFaker_Numerify(t *testing.T) {
 		},
 		{
 			name: "",
-			expr: "[1-9][1-9][1-9][1-9][1-9]",
+			expr: "[0-9][0-9][0-9][0-9][0-9]",
 			in:   "*****",
 		},
 	} {
