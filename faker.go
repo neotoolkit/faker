@@ -243,6 +243,11 @@ func (f Faker) UUID() UUID {
 	return UUID{Faker: &f}
 }
 
+// Jira returns Jira instance
+func (f Faker) Jira() Jira {
+	return Jira{Faker: &f}
+}
+
 // IntBetween returns a int between a given minimum and maximum values
 func (f Faker) IntBetween(min, max int) int {
 	diff := max - min
@@ -282,6 +287,23 @@ func (f Faker) Asciify(in string) string {
 	return out.String()
 }
 
+// UpperAsciify returns string that replace all "*" characters with random upper ASCII values from a given string
+func (f Faker) UpperAsciify(in string) string {
+	var out strings.Builder
+
+	out.Grow(len(in))
+
+	for i := range in {
+		if in[i] == '*' {
+			out.WriteString(fmt.Sprintf("%c", f.IntBetween(65, 90)))
+		} else {
+			out.WriteByte(in[i])
+		}
+	}
+
+	return out.String()
+}
+
 // Numerify returns a fake string that replace all "*" characters with numbers from 0 to 9 as string for Faker
 func (f Faker) Numerify(in string) string {
 	var out strings.Builder
@@ -290,7 +312,7 @@ func (f Faker) Numerify(in string) string {
 
 	for i := range in {
 		if in[i] == '*' {
-			out.WriteString(strconv.Itoa(f.IntBetween(1, 9)))
+			out.WriteString(strconv.Itoa(f.IntBetween(0, 9)))
 		} else {
 			out.WriteByte(in[i])
 		}
