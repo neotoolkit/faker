@@ -52,7 +52,7 @@ func TestIntBetween(t *testing.T) {
 	}
 }
 
-func TestByName(t *testing.T) {
+func TestFaker_Faker(t *testing.T) {
 	t.Parallel()
 
 	for _, tc := range []struct {

@@ -15,6 +15,17 @@ func TestInternet_Username(t *testing.T) {
 	}
 }
 
+func TestInternet_Password(t *testing.T) {
+	password := faker.NewFaker().Internet().Password()
+
+	if len(password) == 0 {
+		t.Error("password is empty")
+	}
+	if len(password) < 8 || len(password) > 16 {
+		t.Error("password must be greater or equal and less or equal 16")
+	}
+}
+
 func TestInternet_GTLD(t *testing.T) {
 	gTLD := faker.NewFaker().Internet().GTLD()
 

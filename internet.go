@@ -34,6 +34,12 @@ func (i Internet) Username() string {
 	return username
 }
 
+// Password returns random password
+func (i Internet) Password() string {
+	pattern := strings.Repeat("*", i.Faker.IntBetween(8, 16))
+	return i.Faker.Asciify(pattern)
+}
+
 // GTLD returns random generic top-level domain
 func (i Internet) GTLD() string {
 	return i.Faker.RandomStringElement(i.gTLD)
@@ -41,7 +47,7 @@ func (i Internet) GTLD() string {
 
 // Domain returns random domain
 func (i Internet) Domain() string {
-	return i.Faker.Asciify("***") + "." + i.GTLD()
+	return i.Faker.LowerAsciify("***") + "." + i.GTLD()
 }
 
 // Email returns random email
@@ -91,22 +97,22 @@ func (i Internet) URL() string {
 	// {{path}}
 	if strings.Contains(url, "{{path}}") {
 		in := strings.Repeat("*", i.Faker.IntBetween(1, 10))
-		url = strings.ReplaceAll(url, "{{path}}", i.Faker.Asciify(in))
+		url = strings.ReplaceAll(url, "{{path}}", i.Faker.LowerAsciify(in))
 	}
 
 	// {{query}}
 	if strings.Contains(url, "{{query}}") {
 		keyIn := strings.Repeat("*", i.Faker.IntBetween(1, 10))
-		key := i.Faker.Asciify(keyIn)
+		key := i.Faker.LowerAsciify(keyIn)
 		valueIn := strings.Repeat("*", i.Faker.IntBetween(1, 10))
-		value := i.Faker.Asciify(valueIn)
+		value := i.Faker.LowerAsciify(valueIn)
 		url = strings.ReplaceAll(url, "{{query}}", key+"="+value)
 	}
 
 	// {{fragment}}
 	if strings.Contains(url, "{{fragment}}") {
 		in := strings.Repeat("*", i.Faker.IntBetween(1, 10))
-		url = strings.ReplaceAll(url, "{{fragment}}", i.Faker.Asciify(in))
+		url = strings.ReplaceAll(url, "{{fragment}}", i.Faker.LowerAsciify(in))
 	}
 
 	return url
