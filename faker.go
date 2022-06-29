@@ -300,59 +300,67 @@ func (f Faker) Numerify(in string) string {
 }
 
 // Faker returns random data as string by faker name
-func (f Faker) Faker(name string) string {
+func (f Faker) Faker(name string) (interface{}, error) {
 	switch strings.ToLower(name) {
 	// Boolean
 	case "boolean":
-		return f.Boolean().String()
+		return f.Boolean().Boolean(), nil
 	// Internet
 	case "username":
-		return f.Internet().Username()
+		return f.Internet().Username(), nil
 	case "gtld":
-		return f.Internet().GTLD()
+		return f.Internet().GTLD(), nil
 	case "domain":
-		return f.Internet().Domain()
+		return f.Internet().Domain(), nil
 	case "email":
-		return f.Internet().Email()
+		return f.Internet().Email(), nil
 	// Person
 	case "firstname", "person.firstname":
-		return f.Person().FirstName()
+		return f.Person().FirstName(), nil
 	case "lastname", "person.lastname":
-		return f.Person().LastName()
+		return f.Person().LastName(), nil
 	case "firstname male", "person.firstnamemale":
-		return f.Person().FirstNameMale()
+		return f.Person().FirstNameMale(), nil
 	case "firstname female", "person.firstnamefemale":
-		return f.Person().FirstNameFemale()
+		return f.Person().FirstNameFemale(), nil
 	case "name", "person.name":
-		return f.Person().Name()
+		return f.Person().Name(), nil
 	case "name male", "person.namemale":
-		return f.Person().NameMale()
+		return f.Person().NameMale(), nil
 	case "name female", "person.namefemale":
-		return f.Person().NameFemale()
+		return f.Person().NameFemale(), nil
 	case "gender", "person.gender":
-		return f.Person().Gender()
+		return f.Person().Gender(), nil
 	case "gender male", "person.gendermale":
-		return f.Person().GenderMale()
+		return f.Person().GenderMale(), nil
 	case "gender female", "person.genderfemale":
-		return f.Person().GenderFemale()
+		return f.Person().GenderFemale(), nil
 	// UUID
 	case "uuid":
-		return f.UUID().V4()
+		return f.UUID().V4(), nil
 	}
 
 	if strings.HasPrefix(strings.ToLower(name), "number(") {
-		args := strings.Trim(name[7:], ")")
-		splitArgs := strings.Split(args, ",")
-		min, err := strconv.Atoi(strings.TrimSpace(splitArgs[0]))
+		min, max, err := getNumberArgs(name)
 		if err != nil {
-			panic(err)
+			return "", err
 		}
-		max, err := strconv.Atoi(strings.TrimSpace(splitArgs[1]))
-		if err != nil {
-			panic(err)
-		}
-		return strconv.Itoa(f.Number(min, max))
+		return f.Number(min, max), nil
 	}
 
-	return ""
+	return nil, nil
+}
+
+func getNumberArgs(name string) (int, int, error) {
+	args := strings.Trim(name[7:], ")")
+	splitArgs := strings.Split(args, ",")
+	min, err := strconv.Atoi(strings.TrimSpace(splitArgs[0]))
+	if err != nil {
+		return 0, 0, err
+	}
+	max, err := strconv.Atoi(strings.TrimSpace(splitArgs[1]))
+	if err != nil {
+		return 0, 0, err
+	}
+	return min, max, nil
 }

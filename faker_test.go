@@ -176,9 +176,12 @@ func TestByName(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			t.Parallel()
 
-			got := faker.NewFaker().Faker(tc.faker)
+			got, err := faker.NewFaker().Faker(tc.faker)
+			if err != nil {
+				t.Error(err)
+			}
 
-			if len(got) == 0 {
+			if got == nil {
 				t.Error("faker by name is empty")
 			}
 		})
