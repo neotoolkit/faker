@@ -38,6 +38,8 @@ func main() {
 Elon Musk
 ```
 
+Usage example in [telegram bot](https://github.com/neotoolkit/faker-telegram-bot)
+
 ## Documentation
 
 See [these docs][pkg-url].
