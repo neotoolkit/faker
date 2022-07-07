@@ -102,17 +102,22 @@ func (i Internet) URL() string {
 
 	// {{query}}
 	if strings.Contains(url, "{{query}}") {
-		keyIn := strings.Repeat("*", i.Faker.IntBetween(1, 10))
-		key := i.Faker.LowerAsciify(keyIn)
-		valueIn := strings.Repeat("*", i.Faker.IntBetween(1, 10))
-		value := i.Faker.LowerAsciify(valueIn)
-		url = strings.ReplaceAll(url, "{{query}}", key+"="+value)
+		n := i.Faker.IntBetween(1, 10)
+		query := make([]string, n)
+		for j := 0; j < n; j++ {
+			keyIn := strings.Repeat("*", i.Faker.IntBetween(1, 10))
+			key := i.Faker.LowerAsciify(keyIn)
+			valueIn := strings.Repeat("*", i.Faker.IntBetween(1, 10))
+			value := i.Faker.LowerAsciify(valueIn)
+			query[j] = key + "=" + value
+		}
+		url = strings.ReplaceAll(url, "{{query}}", strings.Join(query, "&"))
 	}
 
 	// {{fragment}}
 	if strings.Contains(url, "{{fragment}}") {
 		in := strings.Repeat("*", i.Faker.IntBetween(1, 10))
-		url = strings.ReplaceAll(url, "{{fragment}}", i.Faker.LowerAsciify(in))
+		url = strings.ReplaceAll(url, "{{fragment}}", i.Faker.Asciify(in))
 	}
 
 	return url
