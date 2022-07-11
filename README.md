@@ -29,14 +29,14 @@ import (
 )
 
 func main() {
-	f := faker.NewFaker()
-
-	fmt.Println(f.Person().Name())
+	fmt.Println(faker.Name())
 }
 ```
 ```bash
 Elon Musk
 ```
+
+Usage example in [telegram bot](https://github.com/neotoolkit/faker-telegram-bot)
 
 ## Documentation
 

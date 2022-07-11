@@ -2,25 +2,31 @@ package faker
 
 import "strings"
 
-// Color is struct for Color
-type Color struct {
-	Faker      *Faker
-	color      []string
-	hexLetters []string
-}
+var (
+	color = []string{
+		"black", "blue",
+		"gray",
+		"green",
+		"purple",
+		"silver",
+		"white",
+		"yellow",
+	}
+	hexLetters = []string{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"}
+)
 
 // Color returns random color
-func (c Color) Color() string {
-	return c.Faker.RandomStringElement(c.color)
+func Color() string {
+	return RandomStringElement(color)
 }
 
 // Hex returns random hex
-func (c Color) Hex() string {
-	var color strings.Builder
-	color.Grow(7)
-	color.WriteString("#")
+func Hex() string {
+	var hex strings.Builder
+	hex.Grow(7)
+	hex.WriteString("#")
 	for i := 0; i < 6; i++ {
-		color.WriteString(c.Faker.RandomStringElement(c.hexLetters))
+		hex.WriteString(RandomStringElement(hexLetters))
 	}
-	return color.String()
+	return hex.String()
 }

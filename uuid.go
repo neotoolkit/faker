@@ -6,13 +6,8 @@ import (
 	"io"
 )
 
-// UUID is struct for UUID
-type UUID struct {
-	Faker *Faker
-}
-
-// V4 returns UUID V4 as string
-func (u UUID) V4() string {
+// UUID returns UUID V4 as string
+func UUID() string {
 	var uuid [16]byte
 
 	if _, err := io.ReadFull(rand.Reader, uuid[:]); err != nil {

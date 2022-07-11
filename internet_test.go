@@ -7,16 +7,16 @@ import (
 	"github.com/neotoolkit/faker"
 )
 
-func TestInternet_Username(t *testing.T) {
-	username := faker.NewFaker().Internet().Username()
+func TestUsername(t *testing.T) {
+	username := faker.Username()
 
 	if len(username) == 0 {
 		t.Error("username is empty")
 	}
 }
 
-func TestInternet_Password(t *testing.T) {
-	password := faker.NewFaker().Internet().Password()
+func TestPassword(t *testing.T) {
+	password := faker.Password()
 
 	if len(password) == 0 {
 		t.Error("password is empty")
@@ -26,32 +26,32 @@ func TestInternet_Password(t *testing.T) {
 	}
 }
 
-func TestInternet_GTLD(t *testing.T) {
-	gTLD := faker.NewFaker().Internet().GTLD()
+func TestGTLD(t *testing.T) {
+	gTLD := faker.GTLD()
 
 	if len(gTLD) == 0 {
 		t.Error("GTLD is empty")
 	}
 }
 
-func TestInternet_Domain(t *testing.T) {
-	d := faker.NewFaker().Internet().Domain()
+func TestDomain(t *testing.T) {
+	d := faker.Domain()
 
 	if len(d) == 0 {
 		t.Error("domain is empty")
 	}
 }
 
-func TestInternet_Email(t *testing.T) {
-	e := faker.NewFaker().Internet().Email()
+func TestEmail(t *testing.T) {
+	e := faker.Email()
 
 	if len(e) == 0 {
 		t.Error("email is empty")
 	}
 }
 
-func TestInternet_IPv4(t *testing.T) {
-	ip := faker.NewFaker().Internet().IPv4()
+func TestIPv4(t *testing.T) {
+	ip := faker.IPv4()
 
 	if len(ip) == 0 {
 		t.Error("IP is empty")
@@ -62,8 +62,8 @@ func TestInternet_IPv4(t *testing.T) {
 	}
 }
 
-func TestInternet_IPv6(t *testing.T) {
-	ip := faker.NewFaker().Internet().IPv6()
+func TestIPv6(t *testing.T) {
+	ip := faker.IPv6()
 
 	if len(ip) == 0 {
 		t.Error("IP is empty")
@@ -74,16 +74,16 @@ func TestInternet_IPv6(t *testing.T) {
 	}
 }
 
-func TestInternet_Scheme(t *testing.T) {
-	s := faker.NewFaker().Internet().Scheme()
+func TestScheme(t *testing.T) {
+	s := faker.Scheme()
 
 	if len(s) == 0 {
 		t.Error("scheme is empty")
 	}
 }
 
-func TestInternet_URL(t *testing.T) {
-	url := faker.NewFaker().Internet().URL()
+func TestURL(t *testing.T) {
+	url := faker.URL()
 
 	if len(url) == 0 {
 		t.Error("URL is empty")
