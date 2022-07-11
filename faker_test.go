@@ -11,8 +11,6 @@ import (
 func TestIntBetween(t *testing.T) {
 	t.Parallel()
 
-	f := faker.NewFaker()
-
 	for _, tc := range []struct {
 		name string
 		min  int
@@ -33,7 +31,7 @@ func TestIntBetween(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			t.Parallel()
 
-			value := f.IntBetween(tc.min, tc.max)
+			value := faker.IntBetween(tc.min, tc.max)
 
 			valueType := fmt.Sprintf("%T", value)
 
@@ -52,7 +50,7 @@ func TestIntBetween(t *testing.T) {
 	}
 }
 
-func TestFaker_Faker(t *testing.T) {
+func TestFaker(t *testing.T) {
 	t.Parallel()
 
 	for _, tc := range []struct {
@@ -176,7 +174,7 @@ func TestFaker_Faker(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			t.Parallel()
 
-			got, err := faker.NewFaker().Faker(tc.faker)
+			got, err := faker.Faker(tc.faker)
 			if err != nil {
 				t.Error(err)
 			}
@@ -188,7 +186,7 @@ func TestFaker_Faker(t *testing.T) {
 	}
 }
 
-func TestFaker_Numerify(t *testing.T) {
+func TestNumerify(t *testing.T) {
 	for _, tc := range []struct {
 		name string
 		expr string
@@ -224,7 +222,7 @@ func TestFaker_Numerify(t *testing.T) {
 				t.Error(err)
 			}
 
-			n := faker.NewFaker().Numerify(tc.in)
+			n := faker.Numerify(tc.in)
 
 			if !r.MatchString(n) {
 				t.Errorf("%s not match %s", n, tc.expr)

@@ -29,9 +29,7 @@ import (
 )
 
 func main() {
-	f := faker.NewFaker()
-
-	fmt.Println(f.Person().Name())
+	fmt.Println(faker.Name())
 }
 ```
 ```bash

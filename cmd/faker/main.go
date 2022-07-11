@@ -12,11 +12,9 @@ func main() {
 }
 
 func run() {
-	f := faker.NewFaker()
-
 	flag.Parse()
 
 	a := flag.Arg(0)
 
-	fmt.Println(f.Faker(a))
+	fmt.Println(faker.Faker(a))
 }

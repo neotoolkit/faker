@@ -7,11 +7,10 @@ import (
 	"github.com/neotoolkit/faker"
 )
 
-func TestUUID_v4(t *testing.T) {
-	f := faker.NewFaker()
-	value := f.UUID().V4()
+func TestUUID(t *testing.T) {
+	uuid := faker.UUID()
 
-	match, err := regexp.MatchString("^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$", value)
+	match, err := regexp.MatchString("^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$", uuid)
 	if err != nil {
 		t.Error(err)
 	}
@@ -21,10 +20,9 @@ func TestUUID_v4(t *testing.T) {
 	}
 }
 
-func TestUUID_V4UniqueInSequence(t *testing.T) {
-	f := faker.NewFaker()
-	last := f.UUID().V4()
-	current := f.UUID().V4()
+func TestUUID_UniqueInSequence(t *testing.T) {
+	last := faker.UUID()
+	current := faker.UUID()
 
 	if last == current {
 		t.Error("want unique uuid")
