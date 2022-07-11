@@ -26,6 +26,11 @@ func TestIntBetween(t *testing.T) {
 			min:  1,
 			max:  1,
 		},
+		{
+			name: "min -2, max -1",
+			min:  -2,
+			max:  -1,
+		},
 	} {
 		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
