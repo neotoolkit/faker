@@ -1,11 +1,11 @@
 package faker
 
 import (
+	"crypto/rand"
 	"fmt"
-	"math/rand"
+	"math/big"
 	"strconv"
 	"strings"
-	"time"
 )
 
 // IntBetween returns a int between a given minimum and maximum values
@@ -16,11 +16,14 @@ func IntBetween(min, max int) int {
 		return min
 	}
 
-	source := rand.NewSource(time.Now().Unix())
+	bigInt, err := rand.Int(rand.Reader, big.NewInt(int64(diff)+1))
+	if err != nil {
+		return diff
+	}
 
-	r := rand.New(source)
+	n := bigInt.Int64()
 
-	return r.Intn(diff+1) + min
+	return int(n) + min
 }
 
 // Number returns a number between a given minimum and maximum values
