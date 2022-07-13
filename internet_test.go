@@ -27,7 +27,11 @@ func TestPassword(t *testing.T) {
 }
 
 func TestPasswordWithOpts(t *testing.T) {
-	password := faker.Password(faker.SetPasswordMin(10), faker.SetPasswordMax(12))
+	password := faker.Password(
+		faker.SetPasswordMin(10),
+		faker.SetPasswordMax(12),
+		faker.SetPasswordChars("abc"),
+	)
 
 	if len(password) == 0 {
 		t.Error("password is empty")

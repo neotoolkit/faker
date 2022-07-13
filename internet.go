@@ -75,21 +75,29 @@ func Username() string {
 // Password returns random password
 func Password(opts ...PasswordOption) string {
 	options := PasswordOptions{
-		min: 8,
-		max: 16,
+		min:   8,
+		max:   16,
+		chars: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890",
 	}
 	for _, opt := range opts {
 		opt(&options)
 	}
-	pattern := strings.Repeat("*", IntBetween(options.min, options.max))
-	return Asciify(pattern)
+	length := IntBetween(options.min, options.max)
+	var password strings.Builder
+	password.Grow(length)
+	for i := 0; i < length; i++ {
+		char := IntBetween(0, len(options.chars)-1)
+		password.WriteByte(options.chars[char])
+	}
+	return password.String()
 }
 
 type PasswordOption func(opts *PasswordOptions)
 
 type PasswordOptions struct {
-	min int
-	max int
+	min   int
+	max   int
+	chars string
 }
 
 func SetPasswordMin(min int) PasswordOption {
@@ -101,6 +109,12 @@ func SetPasswordMin(min int) PasswordOption {
 func SetPasswordMax(max int) PasswordOption {
 	return func(opts *PasswordOptions) {
 		opts.max = max
+	}
+}
+
+func SetPasswordChars(chars string) PasswordOption {
+	return func(opts *PasswordOptions) {
+		opts.chars = chars
 	}
 }
 
