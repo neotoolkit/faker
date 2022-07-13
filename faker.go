@@ -26,6 +26,22 @@ func IntBetween(min, max int) int {
 	return int(n) + min
 }
 
+// IntBetweenInt64 returns a int64 between a given minimum and maximum values
+func IntBetweenInt64(min, max int64) int64 {
+	diff := max - min
+
+	if diff == 0 {
+		return min
+	}
+
+	bigInt, err := rand.Int(rand.Reader, big.NewInt(diff))
+	if err != nil {
+		return diff
+	}
+
+	return bigInt.Int64() + min
+}
+
 // Number returns a number between a given minimum and maximum values
 func Number(min, max int) int {
 	return IntBetween(min, max)
