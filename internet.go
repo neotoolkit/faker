@@ -73,9 +73,35 @@ func Username() string {
 }
 
 // Password returns random password
-func Password() string {
-	pattern := strings.Repeat("*", IntBetween(8, 16))
+func Password(opts ...PasswordOption) string {
+	options := PasswordOptions{
+		min: 8,
+		max: 16,
+	}
+	for _, opt := range opts {
+		opt(&options)
+	}
+	pattern := strings.Repeat("*", IntBetween(options.min, options.max))
 	return Asciify(pattern)
+}
+
+type PasswordOption func(opts *PasswordOptions)
+
+type PasswordOptions struct {
+	min int
+	max int
+}
+
+func SetPasswordMin(min int) PasswordOption {
+	return func(opts *PasswordOptions) {
+		opts.min = min
+	}
+}
+
+func SetPasswordMax(max int) PasswordOption {
+	return func(opts *PasswordOptions) {
+		opts.max = max
+	}
 }
 
 // GTLD returns random generic top-level domain

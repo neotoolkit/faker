@@ -26,6 +26,17 @@ func TestPassword(t *testing.T) {
 	}
 }
 
+func TestPasswordWithOpts(t *testing.T) {
+	password := faker.Password(faker.SetPasswordMin(10), faker.SetPasswordMax(12))
+
+	if len(password) == 0 {
+		t.Error("password is empty")
+	}
+	if len(password) < 10 || len(password) > 12 {
+		t.Error("password must be greater 10 or equal and less or equal 12")
+	}
+}
+
 func TestGTLD(t *testing.T) {
 	gTLD := faker.GTLD()
 
