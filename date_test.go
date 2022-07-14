@@ -15,6 +15,17 @@ func TestUnix(t *testing.T) {
 	}
 }
 
+func TestUnixWithOpts(t *testing.T) {
+	unix := faker.Unix(
+		faker.SetUnixMin(0),
+		faker.SetUnixMax(1),
+	)
+
+	if unix < 0 || unix > 1 {
+		t.Error("unix must be greater 0 or equal and less or equal 1")
+	}
+}
+
 func TestWeekday(t *testing.T) {
 	weekday := faker.Weekday()
 
