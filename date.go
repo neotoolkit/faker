@@ -5,8 +5,34 @@ import (
 	"time"
 )
 
-func Unix() int64 {
-	return IntBetweenInt64(0, math.MaxInt64)
+func Unix(opts ...UnixOption) int64 {
+	options := UnixOptions{
+		min: 0,
+		max: math.MaxInt64,
+	}
+	for _, opt := range opts {
+		opt(&options)
+	}
+	return IntBetweenInt64(options.min, options.max)
+}
+
+type UnixOption func(opts *UnixOptions)
+
+type UnixOptions struct {
+	min int64
+	max int64
+}
+
+func SetUnixMax(max int64) UnixOption {
+	return func(opts *UnixOptions) {
+		opts.max = max
+	}
+}
+
+func SetUnixMin(min int64) UnixOption {
+	return func(opts *UnixOptions) {
+		opts.min = min
+	}
 }
 
 func Weekday() string {
