@@ -4,6 +4,8 @@ import (
 	crand "crypto/rand"
 	"encoding/binary"
 	"math/rand"
+	"strconv"
+	"strings"
 )
 
 // Faker is Faker instance
@@ -237,4 +239,17 @@ func Number(min, max float64, opts ...Option) float64 {
 func RandomElement[T any](slice []T, opts ...Option) T {
 	i := Integer(0, len(slice)-1, opts...)
 	return slice[i]
+}
+
+// Numerify returns a string that replace all "*" characters with numbers from 0 to 9 as string
+func Numerify(in string, opts ...Option) string {
+	var out strings.Builder
+	for i := range in {
+		if in[i] == '*' {
+			out.WriteString(strconv.Itoa(Integer(0, 9, opts...)))
+		} else {
+			out.WriteByte(in[i])
+		}
+	}
+	return out.String()
 }

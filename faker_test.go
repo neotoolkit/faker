@@ -2,8 +2,10 @@ package faker_test
 
 import (
 	"fmt"
-	"neotoolkit.com/faker"
+	"regexp"
 	"testing"
+
+	"neotoolkit.com/faker"
 )
 
 func TestInteger(t *testing.T) {
@@ -42,6 +44,49 @@ func TestInteger(t *testing.T) {
 			}
 			if value > tc.max {
 				t.Fatalf("value must be greater %d", tc.max)
+			}
+		})
+	}
+}
+
+func TestNumerify(t *testing.T) {
+	t.Parallel()
+	for _, tc := range []struct {
+		name string
+		expr string
+		in   string
+	}{
+		{
+			name: "",
+			expr: "",
+			in:   "",
+		},
+		{
+			name: "",
+			expr: "[0-9][A-Z][0-9]",
+			in:   "*A*",
+		},
+		{
+			name: "",
+			expr: "[A-Z][A-Z][A-Z]",
+			in:   "AAA",
+		},
+		{
+			name: "",
+			expr: "[0-9][0-9][0-9][0-9][0-9]",
+			in:   "*****",
+		},
+	} {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+			r, err := regexp.Compile(tc.expr)
+			if err != nil {
+				t.Error(err)
+			}
+			n := faker.Numerify(tc.in)
+			if !r.MatchString(n) {
+				t.Errorf("%s not match %s", n, tc.expr)
 			}
 		})
 	}
