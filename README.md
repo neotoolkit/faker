@@ -10,12 +10,12 @@ Fake data generator
 
 ## Features
 - Zero dependencies
-- Supports data `boolean`, `username`, `domain`, `email`, `firstname`, `lastname`, `name`, `gender`, `uuid`, `ip`
 - Easy to integrate.
 
 ## Installation
+Go version 1.18+
 ```shell
-go get github.com/neotoolkit/faker
+go get neotoolkit.com/faker
 ```
 
 ## Usage
@@ -25,7 +25,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/neotoolkit/faker"
+	"neotoolkit.com/faker"
 )
 
 func main() {
@@ -33,10 +33,8 @@ func main() {
 }
 ```
 ```bash
-Elon Musk
+Tom Bloggs
 ```
-
-Usage example in [telegram bot](https://github.com/neotoolkit/faker-telegram-bot)
 
 ## Documentation
 

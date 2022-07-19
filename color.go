@@ -2,31 +2,50 @@ package faker
 
 import "strings"
 
-var (
-	color = []string{
-		"black", "blue",
-		"gray",
-		"green",
-		"purple",
-		"silver",
-		"white",
-		"yellow",
-	}
-	hexLetters = []string{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"}
-)
+// Color returns random color
+func (f *Faker) Color() string {
+	return Color(
+		SetRand(f.options.rand),
+		SetColors(f.options.colors...),
+	)
+}
 
 // Color returns random color
-func Color() string {
-	return RandomStringElement(color)
+func Color(opts ...Option) string {
+	options := setOptions(opts...)
+	if len(options.colors) == 0 {
+		options.SetColors(
+			"Red",
+			"Orange",
+			"Yellow",
+			"Green",
+			"Blue",
+			"Indigo",
+			"Violet",
+		)
+	}
+	return RandomElement(options.colors, opts...)
 }
 
 // Hex returns random hex
-func Hex() string {
+func (f *Faker) Hex() string {
+	return Hex(
+		SetRand(f.options.rand),
+		SetHexLetters(f.options.hexLetters...),
+	)
+}
+
+// Hex returns random hex
+func Hex(opts ...Option) string {
 	var hex strings.Builder
 	hex.Grow(7)
 	hex.WriteString("#")
+	options := setOptions(opts...)
+	if len(options.hexLetters) == 0 {
+		options.SetHexLetters("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F")
+	}
 	for i := 0; i < 6; i++ {
-		hex.WriteString(RandomStringElement(hexLetters))
+		hex.WriteString(RandomElement(options.hexLetters, opts...))
 	}
 	return hex.String()
 }
