@@ -16,6 +16,14 @@ func (f *Faker) Password() string {
 }
 
 // Password returns random password
+//
+//    faker.Password(
+//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))),
+//        faker.SetPasswordMin(8),
+//        faker.SetPasswordMax(16),
+//        faker.SetPasswordChars("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"),
+//    )
+//
 func Password(opts ...Option) string {
 	options := setOptions(opts...)
 	if options.passwordMin == 0 {
@@ -46,6 +54,12 @@ func (f *Faker) GenericTopLevelDomain() string {
 }
 
 // GenericTopLevelDomain returns random generic top-level domain
+//
+//    faker.GenericTopLevelDomain(
+//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))),
+//        faker.SetGenericTopLevelDomains("com", "edu", "net", "org"),
+//    )
+//
 func GenericTopLevelDomain(opts ...Option) string {
 	options := setOptions(opts...)
 	if len(options.genericTopLevelDomains) == 0 {
@@ -60,6 +74,11 @@ func (f *Faker) IPv4() string {
 }
 
 // IPv4 returns random IP v4 address
+//
+//    faker.IPv4(
+//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))),
+//    )
+//
 func IPv4(opts ...Option) string {
 	size := 4
 	ip := make([]byte, size)
@@ -75,6 +94,11 @@ func (f *Faker) IPv6() string {
 }
 
 // IPv6 returns random IP v6 address
+//
+//    faker.IPv6(
+//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))),
+//    )
+//
 func IPv6(opts ...Option) string {
 	size := 16
 	ip := make([]byte, size)

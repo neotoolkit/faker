@@ -5,12 +5,27 @@ import (
 	"time"
 )
 
-// Faker -.
+// Faker is Faker instance
 type Faker struct {
 	options *Options
 }
 
-// New -.
+// New returns a new Faker instance with options
+//
+//    faker.New(
+//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))),
+//        faker.SetColors("", ""),
+//        faker.SetHexLetters("", ""),
+//        faker.SetWeekdays("", ""),
+//        faker.SetMonths("", ""),
+//        faker.SetPasswordMin(0),
+//        faker.SetPasswordMax(0),
+//        faker.SetPasswordChars(""),
+//        faker.SetGenericTopLevelDomains("", ""),
+//        faker.SetFirstNames("", ""),
+//        faker.SetLastNames("", ""),
+//    )
+//
 func New(opts ...Option) *Faker {
 	options := setOptions(opts...)
 	return &Faker{options: options}
@@ -40,57 +55,57 @@ type (
 	}
 )
 
-// SetRand -.
+// SetRand sets Rand instance
 func (o *Options) SetRand(r *rand.Rand) {
 	o.rand = r
 }
 
-// SetColors -.
+// SetColors sets colors
 func (o *Options) SetColors(colors ...string) {
 	o.colors = colors
 }
 
-// SetHexLetters -.
+// SetHexLetters sets hex letters
 func (o *Options) SetHexLetters(hexLetters ...string) {
 	o.hexLetters = hexLetters
 }
 
-// SetWeekdays -.
+// SetWeekdays sets weekdays
 func (o *Options) SetWeekdays(weekdays ...string) {
 	o.weekdays = weekdays
 }
 
-// SetMonths -.
+// SetMonths sets months
 func (o *Options) SetMonths(months ...string) {
 	o.months = months
 }
 
-// SetPasswordMin -.
+// SetPasswordMin sets minimal length of password
 func (o *Options) SetPasswordMin(passwordMin int) {
 	o.passwordMin = passwordMin
 }
 
-// SetPasswordMax -.
+// SetPasswordMax sets maximum length of password
 func (o *Options) SetPasswordMax(passwordMax int) {
 	o.passwordMax = passwordMax
 }
 
-// SetPasswordChars -.
+// SetPasswordChars sets password chars
 func (o *Options) SetPasswordChars(passwordChars string) {
 	o.passwordChars = passwordChars
 }
 
-// SetGenericTopLevelDomains -.
+// SetGenericTopLevelDomains sets generic top-level domains
 func (o *Options) SetGenericTopLevelDomains(genericTopLevelDomains ...string) {
 	o.genericTopLevelDomains = genericTopLevelDomains
 }
 
-// SetFirstNames -.
+// SetFirstNames sets first names
 func (o *Options) SetFirstNames(firstNames ...string) {
 	o.firstNames = firstNames
 }
 
-// SetLastNames -.
+// SetLastNames sets last names
 func (o *Options) SetLastNames(lastNames ...string) {
 	o.lastNames = lastNames
 }
