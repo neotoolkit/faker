@@ -28,7 +28,7 @@ func TestColor(t *testing.T) {
 
 func TestFaker_Hex(t *testing.T) {
 	t.Parallel()
-	f := faker.New(faker.SetHexLetters("T"))
+	f := faker.New(faker.SetHexSymbols("T"))
 	hex := f.Hex()
 	if len(hex) != 7 {
 		t.Error("length of hex must be 7")

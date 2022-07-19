@@ -14,29 +14,13 @@ func (f *Faker) Color() string {
 //
 //    faker.Color(
 //        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
-//        faker.SetColors(
-//            "Red",
-//            "Orange",
-//            "Yellow",
-//            "Green",
-//            "Blue",
-//            "Indigo",
-//            "Violet",
-//        ), // Slice of color for RandomElement
+//        faker.SetColors("Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet"), // Slice of color for RandomElement
 //    )
 //
 func Color(opts ...Option) string {
 	options := setOptions(opts...)
 	if len(options.colors) == 0 {
-		options.SetColors(
-			"Red",
-			"Orange",
-			"Yellow",
-			"Green",
-			"Blue",
-			"Indigo",
-			"Violet",
-		)
+		options.SetColors("Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet")
 	}
 	return RandomElement(options.colors, opts...)
 }
@@ -45,7 +29,7 @@ func Color(opts ...Option) string {
 func (f *Faker) Hex() string {
 	return Hex(
 		SetRand(f.options.rand),
-		SetHexLetters(f.options.hexLetters...),
+		SetHexSymbols(f.options.hexSymbols),
 	)
 }
 
@@ -53,24 +37,7 @@ func (f *Faker) Hex() string {
 //
 //    faker.Hex(
 //        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
-//        faker.SetHexLetters(
-//            "0",
-//            "1",
-//            "2",
-//            "3",
-//            "4",
-//            "5",
-//            "6",
-//            "7",
-//            "8",
-//            "9",
-//            "A",
-//            "B",
-//            "C",
-//            "D",
-//            "E",
-//            "F",
-//        ), // Slice of hex letter for RandomElement
+//        faker.SetHexSymbols("0123456789ABCDEF"), // Slice of hex letter for RandomElement
 //    )
 //
 func Hex(opts ...Option) string {
@@ -78,11 +45,12 @@ func Hex(opts ...Option) string {
 	hex.Grow(7)
 	hex.WriteString("#")
 	options := setOptions(opts...)
-	if len(options.hexLetters) == 0 {
-		options.SetHexLetters("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F")
+	if len(options.hexSymbols) == 0 {
+		options.SetHexSymbols("0123456789ABCDEF")
 	}
 	for i := 0; i < 6; i++ {
-		hex.WriteString(RandomElement(options.hexLetters, opts...))
+		hexSymbol := Integer(0, len(options.hexSymbols)-1, opts...)
+		hex.WriteByte(options.hexSymbols[hexSymbol])
 	}
 	return hex.String()
 }

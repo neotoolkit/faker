@@ -15,7 +15,7 @@ type Faker struct {
 //    faker.New(
 //        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))),
 //        faker.SetColors("", ""),
-//        faker.SetHexLetters("", ""),
+//        faker.SetHexSymbols(""),
 //        faker.SetWeekdays("", ""),
 //        faker.SetMonths("", ""),
 //        faker.SetPasswordMin(0),
@@ -40,7 +40,7 @@ type (
 		rand *rand.Rand
 		// Color
 		colors     []string
-		hexLetters []string
+		hexSymbols string
 		// Date
 		weekdays []string
 		months   []string
@@ -65,9 +65,9 @@ func (o *Options) SetColors(colors ...string) {
 	o.colors = colors
 }
 
-// SetHexLetters sets hex letters
-func (o *Options) SetHexLetters(hexLetters ...string) {
-	o.hexLetters = hexLetters
+// SetHexSymbols sets hex symbols
+func (o *Options) SetHexSymbols(hexSymbols string) {
+	o.hexSymbols = hexSymbols
 }
 
 // SetWeekdays sets weekdays
@@ -124,10 +124,10 @@ func SetColors(colors ...string) Option {
 	}
 }
 
-// SetHexLetters -.
-func SetHexLetters(hexLetters ...string) Option {
+// SetHexSymbols -.
+func SetHexSymbols(hexSymbols string) Option {
 	return func(opts *Options) {
-		opts.hexLetters = hexLetters
+		opts.hexSymbols = hexSymbols
 	}
 }
 
