@@ -1,67 +1,58 @@
 package faker
 
-import (
-	"math"
-	"time"
-)
+import "time"
 
-func Unix(opts ...UnixOption) int64 {
-	options := UnixOptions{
-		min: 0,
-		max: math.MaxInt64,
-	}
-	for _, opt := range opts {
-		opt(&options)
-	}
-	return IntBetweenInt64(options.min, options.max)
+// Weekday -.
+func (f *Faker) Weekday() string {
+	return Weekday(
+		SetRand(f.options.rand),
+		SetWeekdays(f.options.weekdays...),
+	)
 }
 
-type UnixOption func(opts *UnixOptions)
-
-type UnixOptions struct {
-	min int64
-	max int64
+// Weekday -.
+func Weekday(opts ...Option) string {
+	options := setOptions(opts...)
+	if len(options.weekdays) == 0 {
+		options.SetWeekdays(
+			time.Sunday.String(),
+			time.Monday.String(),
+			time.Tuesday.String(),
+			time.Wednesday.String(),
+			time.Thursday.String(),
+			time.Friday.String(),
+			time.Saturday.String(),
+		)
+	}
+	return RandomElement(options.weekdays, opts...)
 }
 
-func SetUnixMax(max int64) UnixOption {
-	return func(opts *UnixOptions) {
-		opts.max = max
-	}
+// Month -.
+func (f *Faker) Month() string {
+	return Month(
+		SetRand(f.options.rand),
+		SetMonths(f.options.months...),
+	)
 }
 
-func SetUnixMin(min int64) UnixOption {
-	return func(opts *UnixOptions) {
-		opts.min = min
+// Month -.
+func Month(opts ...Option) string {
+	options := setOptions(opts...)
+	if len(options.months) == 0 {
+		options.SetMonths(
+			time.January.String(),
+			time.February.String(),
+			time.March.String(),
+			time.April.String(),
+			time.May.String(),
+			time.June.String(),
+			time.July.String(),
+			time.August.String(),
+			time.September.String(),
+			time.October.String(),
+			time.November.String(),
+			time.December.String(),
+		)
 	}
-}
-
-func Weekday() string {
-	weekdays := []time.Weekday{
-		time.Sunday,
-		time.Monday,
-		time.Tuesday,
-		time.Wednesday,
-		time.Thursday,
-		time.Friday,
-		time.Saturday,
-	}
-	return weekdays[IntBetween(0, len(weekdays)-1)].String()
-}
-
-func Month() string {
-	months := []time.Month{
-		time.January,
-		time.February,
-		time.March,
-		time.April,
-		time.May,
-		time.June,
-		time.July,
-		time.August,
-		time.September,
-		time.October,
-		time.November,
-		time.December,
-	}
-	return months[IntBetween(0, len(months)-1)].String()
+	return RandomElement(options.months, opts...)
 }

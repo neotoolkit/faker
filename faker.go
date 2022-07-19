@@ -1,192 +1,220 @@
 package faker
 
 import (
-	"crypto/rand"
-	"fmt"
-	"math/big"
-	"strconv"
-	"strings"
+	"math/rand"
+	"time"
 )
 
-// IntBetween returns a int between a given minimum and maximum values
-func IntBetween(min, max int) int {
-	diff := max - min
+// Faker -.
+type Faker struct {
+	options *Options
+}
 
+// New -.
+func New(opts ...Option) *Faker {
+	options := setOptions(opts...)
+	return &Faker{options: options}
+}
+
+type (
+	// Option -.
+	Option func(opts *Options)
+
+	// Options -.
+	Options struct {
+		rand *rand.Rand
+		// Color
+		colors     []string
+		hexLetters []string
+		// Date
+		weekdays []string
+		months   []string
+		// Internet
+		passwordMin            int
+		passwordMax            int
+		passwordChars          string
+		genericTopLevelDomains []string
+		// Person
+		firstNames []string
+		lastNames  []string
+	}
+)
+
+// SetRand -.
+func (o *Options) SetRand(r *rand.Rand) {
+	o.rand = r
+}
+
+// SetColors -.
+func (o *Options) SetColors(colors ...string) {
+	o.colors = colors
+}
+
+// SetHexLetters -.
+func (o *Options) SetHexLetters(hexLetters ...string) {
+	o.hexLetters = hexLetters
+}
+
+// SetWeekdays -.
+func (o *Options) SetWeekdays(weekdays ...string) {
+	o.weekdays = weekdays
+}
+
+// SetMonths -.
+func (o *Options) SetMonths(months ...string) {
+	o.months = months
+}
+
+// SetPasswordMin -.
+func (o *Options) SetPasswordMin(passwordMin int) {
+	o.passwordMin = passwordMin
+}
+
+// SetPasswordMax -.
+func (o *Options) SetPasswordMax(passwordMax int) {
+	o.passwordMax = passwordMax
+}
+
+// SetPasswordChars -.
+func (o *Options) SetPasswordChars(passwordChars string) {
+	o.passwordChars = passwordChars
+}
+
+// SetGenericTopLevelDomains -.
+func (o *Options) SetGenericTopLevelDomains(genericTopLevelDomains ...string) {
+	o.genericTopLevelDomains = genericTopLevelDomains
+}
+
+// SetFirstNames -.
+func (o *Options) SetFirstNames(firstNames ...string) {
+	o.firstNames = firstNames
+}
+
+// SetLastNames -.
+func (o *Options) SetLastNames(lastNames ...string) {
+	o.lastNames = lastNames
+}
+
+// SetRand -.
+func SetRand(r *rand.Rand) Option {
+	return func(opts *Options) {
+		opts.rand = r
+	}
+}
+
+// SetColors -.
+func SetColors(colors ...string) Option {
+	return func(opts *Options) {
+		opts.colors = colors
+	}
+}
+
+// SetHexLetters -.
+func SetHexLetters(hexLetters ...string) Option {
+	return func(opts *Options) {
+		opts.hexLetters = hexLetters
+	}
+}
+
+// SetWeekdays -.
+func SetWeekdays(weekdays ...string) Option {
+	return func(opts *Options) {
+		opts.weekdays = weekdays
+	}
+}
+
+// SetMonths -.
+func SetMonths(months ...string) Option {
+	return func(opts *Options) {
+		opts.months = months
+	}
+}
+
+// SetPasswordMin -.
+func SetPasswordMin(passwordMin int) Option {
+	return func(opts *Options) {
+		opts.passwordMin = passwordMin
+	}
+}
+
+// SetPasswordMax -.
+func SetPasswordMax(passwordMax int) Option {
+	return func(opts *Options) {
+		opts.passwordMax = passwordMax
+	}
+}
+
+// SetPasswordChars -.
+func SetPasswordChars(passwordChars string) Option {
+	return func(opts *Options) {
+		opts.passwordChars = passwordChars
+	}
+}
+
+// SetGenericTopLevelDomains -.
+func SetGenericTopLevelDomains(genericTopLevelDomains ...string) Option {
+	return func(opts *Options) {
+		opts.genericTopLevelDomains = genericTopLevelDomains
+	}
+}
+
+// SetFirstNames -.
+func SetFirstNames(firstNames ...string) Option {
+	return func(opts *Options) {
+		opts.firstNames = firstNames
+	}
+}
+
+// SetLastNames -.
+func SetLastNames(lastNames ...string) Option {
+	return func(opts *Options) {
+		opts.lastNames = lastNames
+	}
+}
+
+func setOptions(opts ...Option) *Options {
+	var options Options
+	for _, opt := range opts {
+		opt(&options)
+	}
+	if options.rand == nil {
+		options.SetRand(rand.New(rand.NewSource(time.Now().Unix())))
+	}
+	return &options
+}
+
+// Integer returns a integer between a given minimum and maximum values
+func (f *Faker) Integer(min, max int) int {
+	return Integer(min, max, SetRand(f.options.rand))
+}
+
+// Integer returns a int between a given minimum and maximum values
+func Integer(min, max int, opts ...Option) int {
+	diff := max - min
 	if diff == 0 {
 		return min
 	}
-
-	bigInt, err := rand.Int(rand.Reader, big.NewInt(int64(diff)+1))
-	if err != nil {
-		return diff
-	}
-
-	n := bigInt.Int64()
-
-	return int(n) + min
+	options := setOptions(opts...)
+	return options.rand.Intn(diff) + min
 }
 
-// IntBetweenInt64 returns a int64 between a given minimum and maximum values
-func IntBetweenInt64(min, max int64) int64 {
-	diff := max - min
-
-	if diff == 0 {
-		return min
-	}
-
-	bigInt, err := rand.Int(rand.Reader, big.NewInt(diff))
-	if err != nil {
-		return diff
-	}
-
-	return bigInt.Int64() + min
+// Number returns a float64 between a given minimum and maximum values
+func (f *Faker) Number(min, max float64) float64 {
+	return Number(min, max, SetRand(f.options.rand))
 }
 
-// Number returns a number between a given minimum and maximum values
-func Number(min, max int) int {
-	return IntBetween(min, max)
+// Number returns a float64 between a given minimum and maximum values
+func Number(min, max float64, opts ...Option) float64 {
+	options := setOptions(opts...)
+	numbers := make([]float64, 10)
+	for i := range numbers {
+		numbers[i] = min + options.rand.Float64()*(max-min)
+	}
+	return RandomElement(numbers)
 }
 
-// RandomStringElement returns a random string element from a given list of strings
-func RandomStringElement(s []string) string {
-	i := IntBetween(0, len(s)-1)
-	return s[i]
-}
-
-// Asciify returns string that replace all "*" characters with random ASCII values from a given string
-func Asciify(in string) string {
-	var out strings.Builder
-
-	out.Grow(len(in))
-
-	for i := range in {
-		if in[i] == '*' {
-			if Boolean() {
-				out.WriteString(fmt.Sprintf("%c", IntBetween(65, 90)))
-			} else {
-				out.WriteString(fmt.Sprintf("%c", IntBetween(97, 122)))
-			}
-		} else {
-			out.WriteByte(in[i])
-		}
-	}
-
-	return out.String()
-}
-
-// LowerAsciify returns string that replace all "*" characters with random lower ASCII values from a given string
-func LowerAsciify(in string) string {
-	var out strings.Builder
-
-	out.Grow(len(in))
-
-	for i := range in {
-		if in[i] == '*' {
-			out.WriteString(fmt.Sprintf("%c", IntBetween(97, 122)))
-		} else {
-			out.WriteByte(in[i])
-		}
-	}
-
-	return out.String()
-}
-
-// UpperAsciify returns string that replace all "*" characters with random upper ASCII values from a given string
-func UpperAsciify(in string) string {
-	var out strings.Builder
-
-	out.Grow(len(in))
-
-	for i := range in {
-		if in[i] == '*' {
-			out.WriteString(fmt.Sprintf("%c", IntBetween(65, 90)))
-		} else {
-			out.WriteByte(in[i])
-		}
-	}
-
-	return out.String()
-}
-
-// Numerify returns a fake string that replace all "*" characters with numbers from 0 to 9 as string for Faker
-func Numerify(in string) string {
-	var out strings.Builder
-
-	out.Grow(len(in))
-
-	for i := range in {
-		if in[i] == '*' {
-			out.WriteString(strconv.Itoa(IntBetween(0, 9)))
-		} else {
-			out.WriteByte(in[i])
-		}
-	}
-
-	return out.String()
-}
-
-// Faker returns random data as string by faker name
-func Faker(name string) (interface{}, error) {
-	switch strings.ToLower(name) {
-	// Boolean
-	case "boolean":
-		return Boolean(), nil
-	// Internet
-	case "username":
-		return Username(), nil
-	case "gtld":
-		return GTLD(), nil
-	case "domain":
-		return Domain(), nil
-	case "email":
-		return Email(), nil
-	// Person
-	case "firstname", "person.firstname":
-		return FirstName(), nil
-	case "lastname", "person.lastname":
-		return LastName(), nil
-	case "firstname male", "person.firstnamemale":
-		return FirstNameMale(), nil
-	case "firstname female", "person.firstnamefemale":
-		return FirstNameFemale(), nil
-	case "name", "person.name":
-		return Name(), nil
-	case "name male", "person.namemale":
-		return NameMale(), nil
-	case "name female", "person.namefemale":
-		return NameFemale(), nil
-	case "gender", "person.gender":
-		return Gender(), nil
-	case "gender male", "person.gendermale":
-		return GenderMale(), nil
-	case "gender female", "person.genderfemale":
-		return GenderFemale(), nil
-	// UUID
-	case "uuid":
-		return UUID(), nil
-	}
-
-	if strings.HasPrefix(strings.ToLower(name), "number(") {
-		min, max, err := getNumberArgs(name)
-		if err != nil {
-			return "", err
-		}
-		return Number(min, max), nil
-	}
-
-	return nil, nil
-}
-
-func getNumberArgs(name string) (int, int, error) {
-	args := strings.Trim(name[7:], ")")
-	splitArgs := strings.Split(args, ",")
-	min, err := strconv.Atoi(strings.TrimSpace(splitArgs[0]))
-	if err != nil {
-		return 0, 0, err
-	}
-	max, err := strconv.Atoi(strings.TrimSpace(splitArgs[1]))
-	if err != nil {
-		return 0, 0, err
-	}
-	return min, max, nil
+// RandomElement returns a random element from a given slice
+func RandomElement[T any](slice []T, opts ...Option) T {
+	i := Integer(0, len(slice)-1, opts...)
+	return slice[i]
 }

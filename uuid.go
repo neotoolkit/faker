@@ -7,6 +7,11 @@ import (
 )
 
 // UUID returns UUID V4 as string
+func (f *Faker) UUID() string {
+	return UUID()
+}
+
+// UUID returns UUID V4 as string
 func UUID() string {
 	var uuid [16]byte
 

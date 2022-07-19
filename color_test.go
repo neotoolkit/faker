@@ -3,21 +3,45 @@ package faker_test
 import (
 	"testing"
 
-	"github.com/neotoolkit/faker"
+	"neotoolkit.com/faker"
 )
 
-func TestColor(t *testing.T) {
-	color := faker.Color()
+func TestFaker_Color(t *testing.T) {
+	t.Parallel()
+	f := faker.New(faker.SetColors("test"))
+	color := f.Color()
+	if len(color) == 0 {
+		t.Error("color is empty")
+	}
+	if color != "test" {
+		t.Errorf("got %s, want test", color)
+	}
+}
 
+func TestColor(t *testing.T) {
+	t.Parallel()
+	color := faker.Color()
 	if len(color) == 0 {
 		t.Error("color is empty")
 	}
 }
 
-func TestHex(t *testing.T) {
-	hex := faker.Hex()
-
+func TestFaker_Hex(t *testing.T) {
+	t.Parallel()
+	f := faker.New(faker.SetHexLetters("T"))
+	hex := f.Hex()
 	if len(hex) != 7 {
-		t.Error("hex is empty")
+		t.Error("length of hex must be 7")
+	}
+	if hex != "#TTTTTT" {
+		t.Errorf("got %s, want test", hex)
+	}
+}
+
+func TestHex(t *testing.T) {
+	t.Parallel()
+	hex := faker.Hex()
+	if len(hex) != 7 {
+		t.Error("length of hex must be 7")
 	}
 }
