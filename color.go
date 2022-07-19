@@ -37,7 +37,7 @@ func (f *Faker) Hex() string {
 //
 //    faker.Hex(
 //        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
-//        faker.SetHexSymbols("0123456789ABCDEF"), // Slice of hex letter for RandomElement
+//        faker.SetHexSymbols("0123456789ABCDEF"), // Hex symbols as string
 //    )
 //
 func Hex(opts ...Option) string {
