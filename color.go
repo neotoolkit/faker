@@ -11,6 +11,20 @@ func (f *Faker) Color() string {
 }
 
 // Color returns random color
+//
+//    faker.Color(
+//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
+//        faker.SetColors(
+//            "Red",
+//            "Orange",
+//            "Yellow",
+//            "Green",
+//            "Blue",
+//            "Indigo",
+//            "Violet",
+//        ), // Slice of color for RandomElement
+//    )
+//
 func Color(opts ...Option) string {
 	options := setOptions(opts...)
 	if len(options.colors) == 0 {
@@ -36,6 +50,29 @@ func (f *Faker) Hex() string {
 }
 
 // Hex returns random hex
+//
+//    faker.Hex(
+//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
+//        faker.SetHexLetters(
+//            "0",
+//            "1",
+//            "2",
+//            "3",
+//            "4",
+//            "5",
+//            "6",
+//            "7",
+//            "8",
+//            "9",
+//            "A",
+//            "B",
+//            "C",
+//            "D",
+//            "E",
+//            "F",
+//        ), // Slice of hex letter for RandomElement
+//    )
+//
 func Hex(opts ...Option) string {
 	var hex strings.Builder
 	hex.Grow(7)
