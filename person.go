@@ -11,8 +11,8 @@ func (f *Faker) FirstName() string {
 // FirstName returns random first name
 //
 //    faker.FirstName(
-//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))),
-//        faker.SetFirstNames("Tom", "Dick", "Harry"),
+//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
+//        faker.SetFirstNames("Tom", "Dick", "Harry"), // Slice of first names for RandomElement
 //    )
 //
 func FirstName(opts ...Option) string {
@@ -34,7 +34,7 @@ func (f *Faker) LastName() string {
 // LastName returns random last name
 //
 //    faker.LastName(
-//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))),
+//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
 //        faker.SetLastNames("Bloggs", "Doe", "Schmoe", "Smith"),
 //    )
 //
@@ -58,7 +58,7 @@ func (f *Faker) Name() string {
 // Name returns random name
 //
 //    faker.Name(
-//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))),
+//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
 //        faker.SetFirstNames("Tom", "Dick", "Harry"),
 //        faker.SetLastNames("Bloggs", "Doe", "Schmoe", "Smith"),
 //    )
