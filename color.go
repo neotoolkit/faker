@@ -54,3 +54,18 @@ func Hex(opts ...Option) string {
 	}
 	return hex.String()
 }
+
+// RGB returns random RGB
+func (f *Faker) RGB() []int {
+	return RGB(SetRand(f.options.rand))
+}
+
+// RGB returns random RGB
+//
+//    faker.RGB(
+//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
+//    )
+//
+func RGB(opts ...Option) []int {
+	return []int{Integer(0, 255, opts...), Integer(0, 255, opts...), Integer(0, 255, opts...)}
+}
