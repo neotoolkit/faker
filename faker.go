@@ -1,8 +1,9 @@
 package faker
 
 import (
+	crand "crypto/rand"
+	"encoding/binary"
 	"math/rand"
-	"time"
 )
 
 // Faker is Faker instance
@@ -193,7 +194,11 @@ func setOptions(opts ...Option) *Options {
 		opt(&options)
 	}
 	if options.rand == nil {
-		options.SetRand(rand.New(rand.NewSource(time.Now().Unix())))
+		var seed int64
+		if err := binary.Read(crand.Reader, binary.BigEndian, &seed); err != nil {
+			panic(err)
+		}
+		options.SetRand(rand.New(rand.NewSource(seed).(rand.Source64)))
 	}
 	return &options
 }
