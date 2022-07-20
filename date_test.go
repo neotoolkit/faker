@@ -2,6 +2,7 @@ package faker_test
 
 import (
 	"testing"
+	"time"
 
 	"neotoolkit.com/faker"
 )
@@ -60,5 +61,24 @@ func TestMonth(t *testing.T) {
 	month := faker.Month()
 	if _, ok := months[month]; !ok {
 		t.Error("bad month")
+	}
+}
+
+func TestFaker_Year(t *testing.T) {
+	t.Parallel()
+	f := faker.New()
+	year := f.Year()
+	currentYear := time.Now().Year()
+	if year < 1970 || year > currentYear {
+		t.Error("year must be equal or greater 1970 or equal or less current local year")
+	}
+}
+
+func TestYear(t *testing.T) {
+	t.Parallel()
+	year := faker.Year()
+	currentYear := time.Now().Year()
+	if year < 1970 || year > currentYear {
+		t.Error("year must be equal or greater 1970 or equal or less current local year")
 	}
 }
