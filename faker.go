@@ -43,6 +43,10 @@ type (
 		rand *rand.Rand
 		// Address
 		postCodeFormats []string
+		// Auth
+		passwordMin   int
+		passwordMax   int
+		passwordChars string
 		// Color
 		colors     []string
 		hexSymbols string
@@ -50,9 +54,6 @@ type (
 		weekdays []string
 		months   []string
 		// Internet
-		passwordMin            int
-		passwordMax            int
-		passwordChars          string
 		genericTopLevelDomains []string
 		httpMethods            []string
 		// Person

@@ -3,48 +3,7 @@ package faker
 import (
 	"net"
 	"net/http"
-	"strings"
 )
-
-// Password returns random password
-func (f *Faker) Password() string {
-	return Password(
-		SetRand(f.options.rand),
-		SetPasswordMin(f.options.passwordMin),
-		SetPasswordMax(f.options.passwordMax),
-		SetPasswordChars(f.options.passwordChars),
-	)
-}
-
-// Password returns random password
-//
-//    faker.Password(
-//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
-//        faker.SetPasswordMin(8),
-//        faker.SetPasswordMax(16),
-//        faker.SetPasswordChars("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"),
-//    )
-//
-func Password(opts ...Option) string {
-	options := setOptions(opts...)
-	if options.passwordMin == 0 {
-		options.SetPasswordMin(8)
-	}
-	if options.passwordMax == 0 {
-		options.SetPasswordMax(16)
-	}
-	if len(options.passwordChars) == 0 {
-		options.SetPasswordChars("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890")
-	}
-	length := Integer(options.passwordMin, options.passwordMax, opts...)
-	var password strings.Builder
-	password.Grow(length)
-	for i := 0; i < length; i++ {
-		char := Integer(0, len(options.passwordChars)-1, opts...)
-		password.WriteByte(options.passwordChars[char])
-	}
-	return password.String()
-}
 
 // GenericTopLevelDomain returns random generic top-level domain
 func (f *Faker) GenericTopLevelDomain() string {
