@@ -88,3 +88,18 @@ func Month(opts ...Option) string {
 	}
 	return RandomElement(options.months, opts...)
 }
+
+// Year returns random year between 1970 and current local
+func (f *Faker) Year() int {
+	return Integer(1970, time.Now().Year(), SetRand(f.options.rand))
+}
+
+// Year returns random year between 1970 and current local
+//
+//    faker.Year(
+//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
+//    )
+//
+func Year(opts ...Option) int {
+	return Integer(1970, time.Now().Year(), opts...)
+}
