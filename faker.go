@@ -35,9 +35,6 @@ func New(opts ...Option) *Faker {
 }
 
 type (
-	// Option -.
-	Option func(opts *Options)
-
 	// Options -.
 	Options struct {
 		rand *rand.Rand
@@ -60,6 +57,9 @@ type (
 		firstNames []string
 		lastNames  []string
 	}
+
+	// Option -.
+	Option func(opts *Options)
 )
 
 // SetRand sets Rand instance
