@@ -41,6 +41,8 @@ type (
 	// Options -.
 	Options struct {
 		rand *rand.Rand
+		// Address
+		postCodeFormats []string
 		// Color
 		colors     []string
 		hexSymbols string
@@ -61,6 +63,11 @@ type (
 // SetRand sets Rand instance
 func (o *Options) SetRand(r *rand.Rand) {
 	o.rand = r
+}
+
+// SetPostCodeFormats sets post code formats
+func (o *Options) SetPostCodeFormats(postCodeFormats ...string) {
+	o.postCodeFormats = postCodeFormats
 }
 
 // SetColors sets colors
@@ -117,6 +124,13 @@ func (o *Options) SetLastNames(lastNames ...string) {
 func SetRand(r *rand.Rand) Option {
 	return func(opts *Options) {
 		opts.rand = r
+	}
+}
+
+// SetPostCodeFormats -.
+func SetPostCodeFormats(postCodeFormats ...string) Option {
+	return func(opts *Options) {
+		opts.postCodeFormats = postCodeFormats
 	}
 }
 
