@@ -8,16 +8,16 @@ import (
 // GenericTopLevelDomain returns random generic top-level domain
 func (f *Faker) GenericTopLevelDomain() string {
 	return GenericTopLevelDomain(
-		SetRand(f.options.rand),
-		SetGenericTopLevelDomains(f.options.genericTopLevelDomains...),
+		WithRand(f.options.rand),
+		WithGenericTopLevelDomains(f.options.genericTopLevelDomains...),
 	)
 }
 
 // GenericTopLevelDomain returns random generic top-level domain
 //
 //    faker.GenericTopLevelDomain(
-//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
-//        faker.SetGenericTopLevelDomains("com", "edu", "net", "org"), // Slice of generic top-level domains for RandomElement
+//        faker.WithRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
+//        faker.WithGenericTopLevelDomains("com", "edu", "net", "org"), // Slice of generic top-level domains for RandomElement
 //    )
 //
 func GenericTopLevelDomain(opts ...Option) string {
@@ -30,13 +30,13 @@ func GenericTopLevelDomain(opts ...Option) string {
 
 // IPv4 returns random IP v4 address
 func (f *Faker) IPv4() string {
-	return IPv4(SetRand(f.options.rand))
+	return IPv4(WithRand(f.options.rand))
 }
 
 // IPv4 returns random IP v4 address
 //
 //    faker.IPv4(
-//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
+//        faker.WithRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
 //    )
 //
 func IPv4(opts ...Option) string {
@@ -50,13 +50,13 @@ func IPv4(opts ...Option) string {
 
 // IPv6 returns random IP v6 address
 func (f *Faker) IPv6() string {
-	return IPv6(SetRand(f.options.rand))
+	return IPv6(WithRand(f.options.rand))
 }
 
 // IPv6 returns random IP v6 address
 //
 //    faker.IPv6(
-//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
+//        faker.WithRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
 //    )
 //
 func IPv6(opts ...Option) string {
@@ -71,15 +71,15 @@ func IPv6(opts ...Option) string {
 // HTTPMethod returns random HTTP method
 func (f *Faker) HTTPMethod() string {
 	return HTTPMethod(
-		SetRand(f.options.rand),
-		SetHTTPMethods(f.options.httpMethods...),
+		WithRand(f.options.rand),
+		WithHTTPMethods(f.options.httpMethods...),
 	)
 }
 
 // HTTPMethod returns random HTTP method
 //
 //    faker.HTTPMethod(
-//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
+//        faker.WithRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
 //        faker.SetSetHTTPMethods("GET", "HEAD"), // Slice of HTTP method for RandomElement
 //    )
 //

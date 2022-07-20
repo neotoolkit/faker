@@ -2,13 +2,13 @@ package faker
 
 // Bool returns random bool
 func (f *Faker) Bool() bool {
-	return Bool(SetRand(f.options.rand))
+	return Bool(WithRand(f.options.rand))
 }
 
 // Bool returns random bool
 //
 //    faker.Bool(
-//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
+//        faker.WithRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
 //    )
 //
 func Bool(opts ...Option) bool {

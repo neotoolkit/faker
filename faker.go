@@ -16,17 +16,17 @@ type Faker struct {
 // New returns a new Faker instance with options
 //
 //    faker.New(
-//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))),
-//        faker.SetColors("", ""),
-//        faker.SetHexSymbols(""),
-//        faker.SetWeekdays("", ""),
-//        faker.SetMonths("", ""),
-//        faker.SetPasswordMin(0),
-//        faker.SetPasswordMax(0),
-//        faker.SetPasswordChars(""),
-//        faker.SetGenericTopLevelDomains("", ""),
-//        faker.SetFirstNames("", ""),
-//        faker.SetLastNames("", ""),
+//        faker.WithRand(rand.New(rand.NewSource(time.Now().Unix()))),
+//        faker.WithColors("", ""),
+//        faker.WithHexSymbols(""),
+//        faker.WithWeekdays("", ""),
+//        faker.WithMonths("", ""),
+//        faker.WithPasswordMin(0),
+//        faker.WithPasswordMax(0),
+//        faker.WithPasswordChars(""),
+//        faker.WithGenericTopLevelDomains("", ""),
+//        faker.WithFirstNames("", ""),
+//        faker.WithLastNames("", ""),
 //    )
 //
 func New(opts ...Option) *Faker {
@@ -127,92 +127,92 @@ func (o *Options) SetLastNames(lastNames ...string) {
 	o.lastNames = lastNames
 }
 
-// SetRand -.
-func SetRand(r *rand.Rand) Option {
+// WithRand -.
+func WithRand(r *rand.Rand) Option {
 	return func(opts *Options) {
 		opts.rand = r
 	}
 }
 
-// SetPostCodeFormats -.
-func SetPostCodeFormats(postCodeFormats ...string) Option {
+// WithPostCodeFormats -.
+func WithPostCodeFormats(postCodeFormats ...string) Option {
 	return func(opts *Options) {
 		opts.postCodeFormats = postCodeFormats
 	}
 }
 
-// SetColors -.
-func SetColors(colors ...string) Option {
+// WithColors -.
+func WithColors(colors ...string) Option {
 	return func(opts *Options) {
 		opts.colors = colors
 	}
 }
 
-// SetHexSymbols -.
-func SetHexSymbols(hexSymbols string) Option {
+// WithHexSymbols -.
+func WithHexSymbols(hexSymbols string) Option {
 	return func(opts *Options) {
 		opts.hexSymbols = hexSymbols
 	}
 }
 
-// SetWeekdays -.
-func SetWeekdays(weekdays ...string) Option {
+// WithWeekdays -.
+func WithWeekdays(weekdays ...string) Option {
 	return func(opts *Options) {
 		opts.weekdays = weekdays
 	}
 }
 
-// SetMonths -.
-func SetMonths(months ...string) Option {
+// WithMonths -.
+func WithMonths(months ...string) Option {
 	return func(opts *Options) {
 		opts.months = months
 	}
 }
 
-// SetPasswordMin -.
-func SetPasswordMin(passwordMin int) Option {
+// WithPasswordMin -.
+func WithPasswordMin(passwordMin int) Option {
 	return func(opts *Options) {
 		opts.passwordMin = passwordMin
 	}
 }
 
-// SetPasswordMax -.
-func SetPasswordMax(passwordMax int) Option {
+// WithPasswordMax -.
+func WithPasswordMax(passwordMax int) Option {
 	return func(opts *Options) {
 		opts.passwordMax = passwordMax
 	}
 }
 
-// SetPasswordChars -.
-func SetPasswordChars(passwordChars string) Option {
+// WithPasswordChars -.
+func WithPasswordChars(passwordChars string) Option {
 	return func(opts *Options) {
 		opts.passwordChars = passwordChars
 	}
 }
 
-// SetGenericTopLevelDomains -.
-func SetGenericTopLevelDomains(genericTopLevelDomains ...string) Option {
+// WithGenericTopLevelDomains -.
+func WithGenericTopLevelDomains(genericTopLevelDomains ...string) Option {
 	return func(opts *Options) {
 		opts.genericTopLevelDomains = genericTopLevelDomains
 	}
 }
 
-// SetHTTPMethods -.
-func SetHTTPMethods(httpMethods ...string) Option {
+// WithHTTPMethods -.
+func WithHTTPMethods(httpMethods ...string) Option {
 	return func(opts *Options) {
 		opts.httpMethods = httpMethods
 	}
 }
 
-// SetFirstNames -.
-func SetFirstNames(firstNames ...string) Option {
+// WithFirstNames -.
+func WithFirstNames(firstNames ...string) Option {
 	return func(opts *Options) {
 		opts.firstNames = firstNames
 	}
 }
 
-// SetLastNames -.
-func SetLastNames(lastNames ...string) Option {
+// WithLastNames -.
+func WithLastNames(lastNames ...string) Option {
 	return func(opts *Options) {
 		opts.lastNames = lastNames
 	}
@@ -235,7 +235,7 @@ func setOptions(opts ...Option) *Options {
 
 // Integer returns a integer between a given minimum and maximum values
 func (f *Faker) Integer(min, max int) int {
-	return Integer(min, max, SetRand(f.options.rand))
+	return Integer(min, max, WithRand(f.options.rand))
 }
 
 // Integer returns a int between a given minimum and maximum values
@@ -250,7 +250,7 @@ func Integer(min, max int, opts ...Option) int {
 
 // Number returns a float64 between a given minimum and maximum values
 func (f *Faker) Number(min, max float64) float64 {
-	return Number(min, max, SetRand(f.options.rand))
+	return Number(min, max, WithRand(f.options.rand))
 }
 
 // Number returns a float64 between a given minimum and maximum values

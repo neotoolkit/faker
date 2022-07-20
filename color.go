@@ -5,16 +5,16 @@ import "strings"
 // Color returns random color
 func (f *Faker) Color() string {
 	return Color(
-		SetRand(f.options.rand),
-		SetColors(f.options.colors...),
+		WithRand(f.options.rand),
+		WithColors(f.options.colors...),
 	)
 }
 
 // Color returns random color
 //
 //    faker.Color(
-//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
-//        faker.SetColors("Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet"), // Slice of color for RandomElement
+//        faker.WithRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
+//        faker.WithColors("Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet"), // Slice of color for RandomElement
 //    )
 //
 func Color(opts ...Option) string {
@@ -28,16 +28,16 @@ func Color(opts ...Option) string {
 // Hex returns random hex
 func (f *Faker) Hex() string {
 	return Hex(
-		SetRand(f.options.rand),
-		SetHexSymbols(f.options.hexSymbols),
+		WithRand(f.options.rand),
+		WithHexSymbols(f.options.hexSymbols),
 	)
 }
 
 // Hex returns random hex
 //
 //    faker.Hex(
-//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
-//        faker.SetHexSymbols("0123456789ABCDEF"), // Hex symbols as string
+//        faker.WithRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
+//        faker.WithHexSymbols("0123456789ABCDEF"), // Hex symbols as string
 //    )
 //
 func Hex(opts ...Option) string {
@@ -57,13 +57,13 @@ func Hex(opts ...Option) string {
 
 // RGB returns random RGB
 func (f *Faker) RGB() []int {
-	return RGB(SetRand(f.options.rand))
+	return RGB(WithRand(f.options.rand))
 }
 
 // RGB returns random RGB
 //
 //    faker.RGB(
-//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
+//        faker.WithRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
 //    )
 //
 func RGB(opts ...Option) []int {

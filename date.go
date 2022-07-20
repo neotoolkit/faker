@@ -5,16 +5,16 @@ import "time"
 // Weekday returns random weekday
 func (f *Faker) Weekday() string {
 	return Weekday(
-		SetRand(f.options.rand),
-		SetWeekdays(f.options.weekdays...),
+		WithRand(f.options.rand),
+		WithWeekdays(f.options.weekdays...),
 	)
 }
 
 // Weekday returns random weekday
 //
 //    faker.Weekday(
-//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
-//        faker.SetWeekdays(
+//        faker.WithRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
+//        faker.WithWeekdays(
 //            "Sunday",
 //            "Monday",
 //            "Tuesday",
@@ -44,16 +44,16 @@ func Weekday(opts ...Option) string {
 // Month returns random month
 func (f *Faker) Month() string {
 	return Month(
-		SetRand(f.options.rand),
-		SetMonths(f.options.months...),
+		WithRand(f.options.rand),
+		WithMonths(f.options.months...),
 	)
 }
 
 // Month returns random month
 //
 //	faker.Month(
-//		faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
-//		faker.SetMonths(
+//		faker.WithRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
+//		faker.WithMonths(
 //			"January",
 //			"February",
 //			"March",
@@ -91,13 +91,13 @@ func Month(opts ...Option) string {
 
 // Year returns random year between 1970 and current local
 func (f *Faker) Year() int {
-	return Integer(1970, time.Now().Year(), SetRand(f.options.rand))
+	return Integer(1970, time.Now().Year(), WithRand(f.options.rand))
 }
 
 // Year returns random year between 1970 and current local
 //
 //    faker.Year(
-//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
+//        faker.WithRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
 //    )
 //
 func Year(opts ...Option) int {

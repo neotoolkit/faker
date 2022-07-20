@@ -9,7 +9,7 @@ import (
 
 func TestFaker_Username(t *testing.T) {
 	t.Parallel()
-	f := faker.New(faker.SetFirstNames("test"))
+	f := faker.New(faker.WithFirstNames("test"))
 	username := f.Username()
 	if len(username) == 0 {
 		t.Error("username is empty")

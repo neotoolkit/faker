@@ -3,16 +3,16 @@ package faker
 // PostCode returns random post code
 func (f *Faker) PostCode() string {
 	return PostCode(
-		SetRand(f.options.rand),
-		SetPostCodeFormats(f.options.postCodeFormats...),
+		WithRand(f.options.rand),
+		WithPostCodeFormats(f.options.postCodeFormats...),
 	)
 }
 
 // PostCode returns random post code
 //
 //    faker.PostCode(
-//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
-//        faker.SetPostCodeFormats("****", "*****", "******") // Slice of post code format for RandomElement
+//        faker.WithRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
+//        faker.WithPostCodeFormats("****", "*****", "******") // Slice of post code format for RandomElement
 //    )
 //
 func PostCode(opts ...Option) string {

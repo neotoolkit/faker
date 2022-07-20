@@ -3,16 +3,16 @@ package faker
 // FirstName returns random first name
 func (f *Faker) FirstName() string {
 	return FirstName(
-		SetRand(f.options.rand),
-		SetFirstNames(f.options.firstNames...),
+		WithRand(f.options.rand),
+		WithFirstNames(f.options.firstNames...),
 	)
 }
 
 // FirstName returns random first name
 //
 //    faker.FirstName(
-//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
-//        faker.SetFirstNames("Tom", "Dick", "Harry"), // Slice of first names for RandomElement
+//        faker.WithRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
+//        faker.WithFirstNames("Tom", "Dick", "Harry"), // Slice of first names for RandomElement
 //    )
 //
 func FirstName(opts ...Option) string {
@@ -26,16 +26,16 @@ func FirstName(opts ...Option) string {
 // LastName returns random last name
 func (f *Faker) LastName() string {
 	return LastName(
-		SetRand(f.options.rand),
-		SetLastNames(f.options.lastNames...),
+		WithRand(f.options.rand),
+		WithLastNames(f.options.lastNames...),
 	)
 }
 
 // LastName returns random last name
 //
 //    faker.LastName(
-//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
-//        faker.SetLastNames("Bloggs", "Doe", "Schmoe", "Smith"),
+//        faker.WithRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
+//        faker.WithLastNames("Bloggs", "Doe", "Schmoe", "Smith"),
 //    )
 //
 func LastName(opts ...Option) string {
@@ -49,18 +49,18 @@ func LastName(opts ...Option) string {
 // Name returns random name
 func (f *Faker) Name() string {
 	return Name(
-		SetRand(f.options.rand),
-		SetFirstNames(f.options.firstNames...),
-		SetLastNames(f.options.lastNames...),
+		WithRand(f.options.rand),
+		WithFirstNames(f.options.firstNames...),
+		WithLastNames(f.options.lastNames...),
 	)
 }
 
 // Name returns random name
 //
 //    faker.Name(
-//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
-//        faker.SetFirstNames("Tom", "Dick", "Harry"),
-//        faker.SetLastNames("Bloggs", "Doe", "Schmoe", "Smith"),
+//        faker.WithRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
+//        faker.WithFirstNames("Tom", "Dick", "Harry"),
+//        faker.WithLastNames("Bloggs", "Doe", "Schmoe", "Smith"),
 //    )
 //
 func Name(opts ...Option) string {

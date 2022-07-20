@@ -5,16 +5,16 @@ import "strings"
 // Username returns random username from first names and two number
 func (f *Faker) Username() string {
 	return Username(
-		SetRand(f.options.rand),
-		SetFirstNames(f.options.firstNames...),
+		WithRand(f.options.rand),
+		WithFirstNames(f.options.firstNames...),
 	)
 }
 
 // Username returns random username from first names and two number
 //
 //    faker.Username(
-//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))),
-//        faker.SetSetFirstNames("Tom")
+//        faker.WithRand(rand.New(rand.NewSource(time.Now().Unix()))),
+//        faker.WithFirstNames("Tom")
 //    )
 //
 func Username(opts ...Option) string {
@@ -24,20 +24,20 @@ func Username(opts ...Option) string {
 // Password returns random password
 func (f *Faker) Password() string {
 	return Password(
-		SetRand(f.options.rand),
-		SetPasswordMin(f.options.passwordMin),
-		SetPasswordMax(f.options.passwordMax),
-		SetPasswordChars(f.options.passwordChars),
+		WithRand(f.options.rand),
+		WithPasswordMin(f.options.passwordMin),
+		WithPasswordMax(f.options.passwordMax),
+		WithPasswordChars(f.options.passwordChars),
 	)
 }
 
 // Password returns random password
 //
 //    faker.Password(
-//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
-//        faker.SetPasswordMin(8),
-//        faker.SetPasswordMax(16),
-//        faker.SetPasswordChars("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"),
+//        faker.WithRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
+//        faker.WithPasswordMin(8),
+//        faker.WithPasswordMax(16),
+//        faker.WithPasswordChars("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"),
 //    )
 //
 func Password(opts ...Option) string {

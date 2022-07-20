@@ -9,7 +9,7 @@ import (
 
 func TestFaker_Weekday(t *testing.T) {
 	t.Parallel()
-	f := faker.New(faker.SetWeekdays("test"))
+	f := faker.New(faker.WithWeekdays("test"))
 	weekday := f.Weekday()
 	if weekday != "test" {
 		t.Errorf("got %s, want test", weekday)
@@ -35,7 +35,7 @@ func TestWeekday(t *testing.T) {
 
 func TestFaker_Month(t *testing.T) {
 	t.Parallel()
-	f := faker.New(faker.SetMonths("test"))
+	f := faker.New(faker.WithMonths("test"))
 	month := f.Month()
 	if month != "test" {
 		t.Errorf("got %s, want test", month)

@@ -8,7 +8,7 @@ import (
 
 func TestFaker_PostCode(t *testing.T) {
 	t.Parallel()
-	f := faker.New(faker.SetPostCodeFormats("test"))
+	f := faker.New(faker.WithPostCodeFormats("test"))
 	postCode := f.PostCode()
 	if len(postCode) == 0 {
 		t.Error("post code is empty")
