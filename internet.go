@@ -2,6 +2,7 @@ package faker
 
 import (
 	"net"
+	"net/http"
 	"strings"
 )
 
@@ -106,4 +107,37 @@ func IPv6(opts ...Option) string {
 		ip[i] = byte(Integer(0, 256, opts...))
 	}
 	return net.IP(ip).To16().String()
+}
+
+// HTTPMethod returns random HTTP method
+func (f *Faker) HTTPMethod() string {
+	return HTTPMethod(
+		SetRand(f.options.rand),
+		SetHTTPMethods(f.options.httpMethods...),
+	)
+}
+
+// HTTPMethod returns random HTTP method
+//
+//    faker.HTTPMethod(
+//        faker.SetRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
+//        faker.SetSetHTTPMethods("GET", "HEAD"), // Slice of HTTP method for RandomElement
+//    )
+//
+func HTTPMethod(opts ...Option) string {
+	options := setOptions(opts...)
+	if len(options.httpMethods) == 0 {
+		options.SetHTTPMethods(
+			http.MethodGet,
+			http.MethodHead,
+			http.MethodPost,
+			http.MethodPut,
+			http.MethodPatch,
+			http.MethodDelete,
+			http.MethodConnect,
+			http.MethodOptions,
+			http.MethodTrace,
+		)
+	}
+	return RandomElement(options.httpMethods, opts...)
 }

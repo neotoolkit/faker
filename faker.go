@@ -54,6 +54,7 @@ type (
 		passwordMax            int
 		passwordChars          string
 		genericTopLevelDomains []string
+		httpMethods            []string
 		// Person
 		firstNames []string
 		lastNames  []string
@@ -108,6 +109,11 @@ func (o *Options) SetPasswordChars(passwordChars string) {
 // SetGenericTopLevelDomains sets generic top-level domains
 func (o *Options) SetGenericTopLevelDomains(genericTopLevelDomains ...string) {
 	o.genericTopLevelDomains = genericTopLevelDomains
+}
+
+// SetHTTPMethods sets HTTP methods
+func (o *Options) SetHTTPMethods(httpMethods ...string) {
+	o.httpMethods = httpMethods
 }
 
 // SetFirstNames sets first names
@@ -187,6 +193,13 @@ func SetPasswordChars(passwordChars string) Option {
 func SetGenericTopLevelDomains(genericTopLevelDomains ...string) Option {
 	return func(opts *Options) {
 		opts.genericTopLevelDomains = genericTopLevelDomains
+	}
+}
+
+// SetHTTPMethods -.
+func SetHTTPMethods(httpMethods ...string) Option {
+	return func(opts *Options) {
+		opts.httpMethods = httpMethods
 	}
 }
 
