@@ -7,7 +7,6 @@ import (
 	"math/rand"
 	"strconv"
 	"strings"
-	"unicode/utf8"
 )
 
 // Faker is Faker instance
@@ -231,7 +230,7 @@ func (f *Faker) Numerify(in string) string {
 // Numerify returns a string that replace all "#" characters with numbers from 0 to 9 as string
 func Numerify(in string, opts ...Option) string {
 	var out strings.Builder
-	out.Grow(utf8.RuneCountInString(in))
+	out.Grow(len(in))
 	for i := range in {
 		if in[i] == '#' {
 			out.WriteString(strconv.Itoa(Integer(0, 9, opts...)))
@@ -263,7 +262,7 @@ func Asciify(in string, opts ...Option) string {
 		WithAsciifyUnicodeDecimals(latinLetters...)(cfg)
 	}
 	var out strings.Builder
-	out.Grow(utf8.RuneCountInString(in))
+	out.Grow(len(in))
 	for i := range in {
 		if in[i] == '*' {
 			out.WriteString(fmt.Sprintf("%c", RandomElement(cfg.asciifyUnicodeDecimals, opts...)))
