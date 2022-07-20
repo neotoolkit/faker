@@ -18,7 +18,7 @@ func (f *Faker) Username() string {
 //    )
 //
 func Username(opts ...Option) string {
-	return FirstName(opts...) + Numerify("**", opts...)
+	return FirstName(opts...) + Numerify("##", opts...)
 }
 
 // Password returns random password

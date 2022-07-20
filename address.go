@@ -18,7 +18,7 @@ func (f *Faker) PostCode() string {
 func PostCode(opts ...Option) string {
 	cfg := newConfig(opts...)
 	if len(cfg.postCodeFormats) == 0 {
-		WithPostCodeFormats("****", "*****", "******")(cfg)
+		WithPostCodeFormats("####", "#####", "######")(cfg)
 	}
 	return Numerify(RandomElement(cfg.postCodeFormats, opts...), opts...)
 }

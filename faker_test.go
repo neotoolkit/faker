@@ -64,7 +64,7 @@ func TestNumerify(t *testing.T) {
 		{
 			name: "",
 			expr: "[0-9][A-Z][0-9]",
-			in:   "*A*",
+			in:   "#A#",
 		},
 		{
 			name: "",
@@ -74,7 +74,7 @@ func TestNumerify(t *testing.T) {
 		{
 			name: "",
 			expr: "[0-9][0-9][0-9][0-9][0-9]",
-			in:   "*****",
+			in:   "#####",
 		},
 	} {
 		tc := tc
@@ -87,6 +87,48 @@ func TestNumerify(t *testing.T) {
 			n := faker.Numerify(tc.in)
 			if !r.MatchString(n) {
 				t.Errorf("%s not match %s", n, tc.expr)
+			}
+		})
+	}
+}
+
+func TestAsciify(t *testing.T) {
+	t.Parallel()
+	for _, tc := range []struct {
+		name string
+		expr string
+		in   string
+		opt  faker.Option
+	}{
+		{
+			name: "",
+			expr: "",
+			in:   "",
+			opt:  func(opts *faker.Config) {},
+		},
+		{
+			name: "",
+			expr: "[0-9][0-9][0-9]",
+			in:   "111",
+			opt:  func(opts *faker.Config) {},
+		},
+		{
+			name: "",
+			expr: "[a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z]",
+			in:   "*****",
+			opt:  func(opts *faker.Config) {},
+		},
+	} {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+			r, err := regexp.Compile(tc.expr)
+			if err != nil {
+				t.Error(err)
+			}
+			a := faker.Asciify(tc.in, tc.opt)
+			if !r.MatchString(a) {
+				t.Errorf("%s not match %s", a, tc.expr)
 			}
 		})
 	}

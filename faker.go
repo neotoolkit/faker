@@ -3,9 +3,11 @@ package faker
 import (
 	crand "crypto/rand"
 	"encoding/binary"
+	"fmt"
 	"math/rand"
 	"strconv"
 	"strings"
+	"unicode/utf8"
 )
 
 // Faker is Faker instance
@@ -38,6 +40,8 @@ type (
 	// Config -.
 	Config struct {
 		rand *rand.Rand
+		// Unicode characters as integers
+		asciifyUnicodeDecimals []int
 		// Address
 		postCodeFormats []string
 		// Auth
@@ -67,6 +71,13 @@ type (
 func WithRand(r *rand.Rand) Option {
 	return func(cfg *Config) {
 		cfg.rand = r
+	}
+}
+
+// WithAsciifyUnicodeDecimals -.
+func WithAsciifyUnicodeDecimals(asciifyUnicodeDecimals ...int) Option {
+	return func(cfg *Config) {
+		cfg.asciifyUnicodeDecimals = asciifyUnicodeDecimals
 	}
 }
 
@@ -212,15 +223,61 @@ func RandomElement[T any](slice []T, opts ...Option) T {
 	return slice[i]
 }
 
-// Numerify returns a string that replace all "*" characters with numbers from 0 to 9 as string
+// Numerify returns a string that replace all "#" characters with numbers from 0 to 9 as string
+func (f *Faker) Numerify(in string) string {
+	return Numerify(in, WithRand(f.cfg.rand))
+}
+
+// Numerify returns a string that replace all "#" characters with numbers from 0 to 9 as string
 func Numerify(in string, opts ...Option) string {
 	var out strings.Builder
+	out.Grow(utf8.RuneCountInString(in))
 	for i := range in {
-		if in[i] == '*' {
+		if in[i] == '#' {
 			out.WriteString(strconv.Itoa(Integer(0, 9, opts...)))
 		} else {
 			out.WriteByte(in[i])
 		}
 	}
 	return out.String()
+}
+
+// Asciify returns a string that replace all "*" characters with latin letters
+func (f *Faker) Asciify(in string) string {
+	return Numerify(
+		in,
+		WithRand(f.cfg.rand),
+		WithAsciifyUnicodeDecimals(f.cfg.asciifyUnicodeDecimals...),
+	)
+}
+
+// Asciify returns a string that replace all "*" characters with unicode characters
+func Asciify(in string, opts ...Option) string {
+	cfg := newConfig(opts...)
+	if len(cfg.asciifyUnicodeDecimals) == 0 {
+		latinLetters := make([]int, 0, 50)
+		// Capital letters
+		latinLetters = append(latinLetters, intArrRange(65, 90)...)
+		// Small letters
+		latinLetters = append(latinLetters, intArrRange(97, 122)...)
+		WithAsciifyUnicodeDecimals(latinLetters...)(cfg)
+	}
+	var out strings.Builder
+	out.Grow(utf8.RuneCountInString(in))
+	for i := range in {
+		if in[i] == '*' {
+			out.WriteString(fmt.Sprintf("%c", RandomElement(cfg.asciifyUnicodeDecimals, opts...)))
+		} else {
+			out.WriteByte(in[i])
+		}
+	}
+	return out.String()
+}
+
+func intArrRange(min, max int) []int {
+	arr := make([]int, max-min+1)
+	for i := range arr {
+		arr[i] = min + i
+	}
+	return arr
 }
