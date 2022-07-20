@@ -5,8 +5,8 @@ import "time"
 // Weekday returns random weekday
 func (f *Faker) Weekday() string {
 	return Weekday(
-		WithRand(f.options.rand),
-		WithWeekdays(f.options.weekdays...),
+		WithRand(f.cfg.rand),
+		WithWeekdays(f.cfg.weekdays...),
 	)
 }
 
@@ -26,9 +26,9 @@ func (f *Faker) Weekday() string {
 //    )
 //
 func Weekday(opts ...Option) string {
-	options := setOptions(opts...)
-	if len(options.weekdays) == 0 {
-		options.SetWeekdays(
+	cfg := newConfig(opts...)
+	if len(cfg.weekdays) == 0 {
+		WithWeekdays(
 			time.Sunday.String(),
 			time.Monday.String(),
 			time.Tuesday.String(),
@@ -36,16 +36,16 @@ func Weekday(opts ...Option) string {
 			time.Thursday.String(),
 			time.Friday.String(),
 			time.Saturday.String(),
-		)
+		)(cfg)
 	}
-	return RandomElement(options.weekdays, opts...)
+	return RandomElement(cfg.weekdays, opts...)
 }
 
 // Month returns random month
 func (f *Faker) Month() string {
 	return Month(
-		WithRand(f.options.rand),
-		WithMonths(f.options.months...),
+		WithRand(f.cfg.rand),
+		WithMonths(f.cfg.months...),
 	)
 }
 
@@ -69,9 +69,9 @@ func (f *Faker) Month() string {
 //		), // Slice of month for RandomElement
 //	)
 func Month(opts ...Option) string {
-	options := setOptions(opts...)
-	if len(options.months) == 0 {
-		options.SetMonths(
+	cfg := newConfig(opts...)
+	if len(cfg.months) == 0 {
+		WithMonths(
 			time.January.String(),
 			time.February.String(),
 			time.March.String(),
@@ -84,14 +84,14 @@ func Month(opts ...Option) string {
 			time.October.String(),
 			time.November.String(),
 			time.December.String(),
-		)
+		)(cfg)
 	}
-	return RandomElement(options.months, opts...)
+	return RandomElement(cfg.months, opts...)
 }
 
 // Year returns random year between 1970 and current local
 func (f *Faker) Year() int {
-	return Integer(1970, time.Now().Year(), WithRand(f.options.rand))
+	return Integer(1970, time.Now().Year(), WithRand(f.cfg.rand))
 }
 
 // Year returns random year between 1970 and current local

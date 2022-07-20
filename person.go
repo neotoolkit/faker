@@ -3,8 +3,8 @@ package faker
 // FirstName returns random first name
 func (f *Faker) FirstName() string {
 	return FirstName(
-		WithRand(f.options.rand),
-		WithFirstNames(f.options.firstNames...),
+		WithRand(f.cfg.rand),
+		WithFirstNames(f.cfg.firstNames...),
 	)
 }
 
@@ -16,18 +16,18 @@ func (f *Faker) FirstName() string {
 //    )
 //
 func FirstName(opts ...Option) string {
-	options := setOptions(opts...)
-	if len(options.firstNames) == 0 {
-		options.SetFirstNames("Tom", "Dick", "Harry")
+	cfg := newConfig(opts...)
+	if len(cfg.firstNames) == 0 {
+		WithFirstNames("Tom", "Dick", "Harry")(cfg)
 	}
-	return RandomElement(options.firstNames, opts...)
+	return RandomElement(cfg.firstNames, opts...)
 }
 
 // LastName returns random last name
 func (f *Faker) LastName() string {
 	return LastName(
-		WithRand(f.options.rand),
-		WithLastNames(f.options.lastNames...),
+		WithRand(f.cfg.rand),
+		WithLastNames(f.cfg.lastNames...),
 	)
 }
 
@@ -39,19 +39,19 @@ func (f *Faker) LastName() string {
 //    )
 //
 func LastName(opts ...Option) string {
-	options := setOptions(opts...)
-	if len(options.lastNames) == 0 {
-		options.SetLastNames("Bloggs", "Doe", "Schmoe", "Smith")
+	cfg := newConfig(opts...)
+	if len(cfg.lastNames) == 0 {
+		WithLastNames("Bloggs", "Doe", "Schmoe", "Smith")(cfg)
 	}
-	return RandomElement(options.lastNames, opts...)
+	return RandomElement(cfg.lastNames, opts...)
 }
 
 // Name returns random name
 func (f *Faker) Name() string {
 	return Name(
-		WithRand(f.options.rand),
-		WithFirstNames(f.options.firstNames...),
-		WithLastNames(f.options.lastNames...),
+		WithRand(f.cfg.rand),
+		WithFirstNames(f.cfg.firstNames...),
+		WithLastNames(f.cfg.lastNames...),
 	)
 }
 

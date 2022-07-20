@@ -5,8 +5,8 @@ import "strings"
 // Username returns random username from first names and two number
 func (f *Faker) Username() string {
 	return Username(
-		WithRand(f.options.rand),
-		WithFirstNames(f.options.firstNames...),
+		WithRand(f.cfg.rand),
+		WithFirstNames(f.cfg.firstNames...),
 	)
 }
 
@@ -24,10 +24,10 @@ func Username(opts ...Option) string {
 // Password returns random password
 func (f *Faker) Password() string {
 	return Password(
-		WithRand(f.options.rand),
-		WithPasswordMin(f.options.passwordMin),
-		WithPasswordMax(f.options.passwordMax),
-		WithPasswordChars(f.options.passwordChars),
+		WithRand(f.cfg.rand),
+		WithPasswordMin(f.cfg.passwordMin),
+		WithPasswordMax(f.cfg.passwordMax),
+		WithPasswordChars(f.cfg.passwordChars),
 	)
 }
 
@@ -41,22 +41,22 @@ func (f *Faker) Password() string {
 //    )
 //
 func Password(opts ...Option) string {
-	options := setOptions(opts...)
-	if options.passwordMin == 0 {
-		options.SetPasswordMin(8)
+	cfg := newConfig(opts...)
+	if cfg.passwordMin == 0 {
+		WithPasswordMin(8)(cfg)
 	}
-	if options.passwordMax == 0 {
-		options.SetPasswordMax(16)
+	if cfg.passwordMax == 0 {
+		WithPasswordMax(16)(cfg)
 	}
-	if len(options.passwordChars) == 0 {
-		options.SetPasswordChars("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890")
+	if len(cfg.passwordChars) == 0 {
+		WithPasswordChars("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890")(cfg)
 	}
-	length := Integer(options.passwordMin, options.passwordMax, opts...)
+	length := Integer(cfg.passwordMin, cfg.passwordMax, opts...)
 	var password strings.Builder
 	password.Grow(length)
 	for i := 0; i < length; i++ {
-		char := Integer(0, len(options.passwordChars)-1, opts...)
-		password.WriteByte(options.passwordChars[char])
+		char := Integer(0, len(cfg.passwordChars)-1, opts...)
+		password.WriteByte(cfg.passwordChars[char])
 	}
 	return password.String()
 }

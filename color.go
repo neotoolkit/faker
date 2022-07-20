@@ -5,8 +5,8 @@ import "strings"
 // Color returns random color
 func (f *Faker) Color() string {
 	return Color(
-		WithRand(f.options.rand),
-		WithColors(f.options.colors...),
+		WithRand(f.cfg.rand),
+		WithColors(f.cfg.colors...),
 	)
 }
 
@@ -18,18 +18,18 @@ func (f *Faker) Color() string {
 //    )
 //
 func Color(opts ...Option) string {
-	options := setOptions(opts...)
-	if len(options.colors) == 0 {
-		options.SetColors("Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet")
+	cfg := newConfig(opts...)
+	if len(cfg.colors) == 0 {
+		WithColors("Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet")(cfg)
 	}
-	return RandomElement(options.colors, opts...)
+	return RandomElement(cfg.colors, opts...)
 }
 
 // Hex returns random hex
 func (f *Faker) Hex() string {
 	return Hex(
-		WithRand(f.options.rand),
-		WithHexSymbols(f.options.hexSymbols),
+		WithRand(f.cfg.rand),
+		WithHexSymbols(f.cfg.hexSymbols),
 	)
 }
 
@@ -44,20 +44,20 @@ func Hex(opts ...Option) string {
 	var hex strings.Builder
 	hex.Grow(7)
 	hex.WriteString("#")
-	options := setOptions(opts...)
-	if len(options.hexSymbols) == 0 {
-		options.SetHexSymbols("0123456789ABCDEF")
+	cfg := newConfig(opts...)
+	if len(cfg.hexSymbols) == 0 {
+		WithHexSymbols("0123456789ABCDEF")(cfg)
 	}
 	for i := 0; i < 6; i++ {
-		hexSymbol := Integer(0, len(options.hexSymbols)-1, opts...)
-		hex.WriteByte(options.hexSymbols[hexSymbol])
+		hexSymbol := Integer(0, len(cfg.hexSymbols)-1, opts...)
+		hex.WriteByte(cfg.hexSymbols[hexSymbol])
 	}
 	return hex.String()
 }
 
 // RGB returns random RGB
 func (f *Faker) RGB() []int {
-	return RGB(WithRand(f.options.rand))
+	return RGB(WithRand(f.cfg.rand))
 }
 
 // RGB returns random RGB

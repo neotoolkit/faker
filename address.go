@@ -3,8 +3,8 @@ package faker
 // PostCode returns random post code
 func (f *Faker) PostCode() string {
 	return PostCode(
-		WithRand(f.options.rand),
-		WithPostCodeFormats(f.options.postCodeFormats...),
+		WithRand(f.cfg.rand),
+		WithPostCodeFormats(f.cfg.postCodeFormats...),
 	)
 }
 
@@ -16,9 +16,9 @@ func (f *Faker) PostCode() string {
 //    )
 //
 func PostCode(opts ...Option) string {
-	options := setOptions(opts...)
-	if len(options.postCodeFormats) == 0 {
-		options.SetPostCodeFormats("****", "*****", "******")
+	cfg := newConfig(opts...)
+	if len(cfg.postCodeFormats) == 0 {
+		WithPostCodeFormats("*", "*****", "******")(cfg)
 	}
-	return Numerify(RandomElement(options.postCodeFormats, opts...), opts...)
+	return Numerify(RandomElement(cfg.postCodeFormats, opts...), opts...)
 }

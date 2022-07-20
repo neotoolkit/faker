@@ -2,7 +2,7 @@ package faker
 
 // Bool returns random bool
 func (f *Faker) Bool() bool {
-	return Bool(WithRand(f.options.rand))
+	return Bool(WithRand(f.cfg.rand))
 }
 
 // Bool returns random bool

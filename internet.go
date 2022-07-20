@@ -8,8 +8,8 @@ import (
 // GenericTopLevelDomain returns random generic top-level domain
 func (f *Faker) GenericTopLevelDomain() string {
 	return GenericTopLevelDomain(
-		WithRand(f.options.rand),
-		WithGenericTopLevelDomains(f.options.genericTopLevelDomains...),
+		WithRand(f.cfg.rand),
+		WithGenericTopLevelDomains(f.cfg.genericTopLevelDomains...),
 	)
 }
 
@@ -21,16 +21,16 @@ func (f *Faker) GenericTopLevelDomain() string {
 //    )
 //
 func GenericTopLevelDomain(opts ...Option) string {
-	options := setOptions(opts...)
-	if len(options.genericTopLevelDomains) == 0 {
-		options.SetGenericTopLevelDomains("com", "edu", "net", "org")
+	cfg := newConfig(opts...)
+	if len(cfg.genericTopLevelDomains) == 0 {
+		WithGenericTopLevelDomains("com", "edu", "net", "org")(cfg)
 	}
-	return RandomElement(options.genericTopLevelDomains, opts...)
+	return RandomElement(cfg.genericTopLevelDomains, opts...)
 }
 
 // IPv4 returns random IP v4 address
 func (f *Faker) IPv4() string {
-	return IPv4(WithRand(f.options.rand))
+	return IPv4(WithRand(f.cfg.rand))
 }
 
 // IPv4 returns random IP v4 address
@@ -50,7 +50,7 @@ func IPv4(opts ...Option) string {
 
 // IPv6 returns random IP v6 address
 func (f *Faker) IPv6() string {
-	return IPv6(WithRand(f.options.rand))
+	return IPv6(WithRand(f.cfg.rand))
 }
 
 // IPv6 returns random IP v6 address
@@ -71,8 +71,8 @@ func IPv6(opts ...Option) string {
 // HTTPMethod returns random HTTP method
 func (f *Faker) HTTPMethod() string {
 	return HTTPMethod(
-		WithRand(f.options.rand),
-		WithHTTPMethods(f.options.httpMethods...),
+		WithRand(f.cfg.rand),
+		WithHTTPMethods(f.cfg.httpMethods...),
 	)
 }
 
@@ -84,9 +84,9 @@ func (f *Faker) HTTPMethod() string {
 //    )
 //
 func HTTPMethod(opts ...Option) string {
-	options := setOptions(opts...)
-	if len(options.httpMethods) == 0 {
-		options.SetHTTPMethods(
+	cfg := newConfig(opts...)
+	if len(cfg.httpMethods) == 0 {
+		WithHTTPMethods(
 			http.MethodGet,
 			http.MethodHead,
 			http.MethodPost,
@@ -96,7 +96,7 @@ func HTTPMethod(opts ...Option) string {
 			http.MethodConnect,
 			http.MethodOptions,
 			http.MethodTrace,
-		)
+		)(cfg)
 	}
-	return RandomElement(options.httpMethods, opts...)
+	return RandomElement(cfg.httpMethods, opts...)
 }
