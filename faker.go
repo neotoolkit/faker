@@ -53,6 +53,7 @@ type (
 		// Internet
 		genericTopLevelDomains []string
 		httpMethods            []string
+		httpStatusCodes        []int
 		// Person
 		firstNames []string
 		lastNames  []string
@@ -136,6 +137,13 @@ func WithGenericTopLevelDomains(genericTopLevelDomains ...string) Option {
 func WithHTTPMethods(httpMethods ...string) Option {
 	return func(cfg *Config) {
 		cfg.httpMethods = httpMethods
+	}
+}
+
+// WithHTTPStatusCodes -.
+func WithHTTPStatusCodes(httpStatusCodes ...int) Option {
+	return func(cfg *Config) {
+		cfg.httpStatusCodes = httpStatusCodes
 	}
 }
 

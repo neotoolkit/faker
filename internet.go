@@ -100,3 +100,36 @@ func HTTPMethod(opts ...Option) string {
 	}
 	return RandomElement(cfg.httpMethods, opts...)
 }
+
+// HTTPStatusCode returns random HTTP status code
+func (f *Faker) HTTPStatusCode() int {
+	return HTTPStatusCode(
+		WithRand(f.cfg.rand),
+		WithHTTPStatusCodes(f.cfg.httpStatusCodes...),
+	)
+}
+
+// HTTPStatusCode returns random HTTP status code
+//
+//    faker.HTTPStatusCode(
+//        faker.WithRand(rand.New(rand.NewSource(time.Now().Unix()))), // Rand instance
+//        faker.WithHTTPStatusCodes(200, 201), // Slice of HTTP status code for RandomElement
+//    )
+//
+func HTTPStatusCode(opts ...Option) int {
+	cfg := newConfig(opts...)
+	if len(cfg.httpStatusCodes) == 0 {
+		WithHTTPStatusCodes(
+			http.StatusOK,
+			http.StatusCreated,
+			http.StatusNoContent,
+			http.StatusBadRequest,
+			http.StatusUnauthorized,
+			http.StatusForbidden,
+			http.StatusNotFound,
+			http.StatusConflict,
+			http.StatusInternalServerError,
+		)(cfg)
+	}
+	return RandomElement(cfg.httpStatusCodes, opts...)
+}
