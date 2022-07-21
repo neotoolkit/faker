@@ -3,7 +3,7 @@ package faker_test
 import (
 	"testing"
 
-	"neotoolkit.com/faker"
+	"go.neotoolkit.com/faker"
 )
 
 func TestFaker_HTTPMethod(t *testing.T) {

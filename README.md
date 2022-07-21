@@ -15,7 +15,7 @@ Fake data generator
 ## Installation
 Go version 1.18+
 ```shell
-go get neotoolkit.com/faker
+go get go.neotoolkit.com/faker
 ```
 
 ## Usage
@@ -25,7 +25,7 @@ package main
 import (
 	"fmt"
 
-	"neotoolkit.com/faker"
+	"go.neotoolkit.com/faker"
 )
 
 func main() {

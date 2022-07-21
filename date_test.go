@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"neotoolkit.com/faker"
+	"go.neotoolkit.com/faker"
 )
 
 func TestFaker_Weekday(t *testing.T) {

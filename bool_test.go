@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"neotoolkit.com/faker"
+	"go.neotoolkit.com/faker"
 )
 
 func TestFaker_Bool(t *testing.T) {
