@@ -1,3 +1,3 @@
-module go.neotoolkit.com/faker
+module github.com/neotoolkit/faker
 
 go 1.18

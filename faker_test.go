@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"testing"
 
-	"go.neotoolkit.com/faker"
+	"github.com/neotoolkit/faker"
 )
 
 func TestInteger(t *testing.T) {

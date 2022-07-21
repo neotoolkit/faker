@@ -3,7 +3,7 @@ package faker_test
 import (
 	"testing"
 
-	"go.neotoolkit.com/faker"
+	"github.com/neotoolkit/faker"
 )
 
 func TestFaker_PostCode(t *testing.T) {

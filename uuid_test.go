@@ -4,7 +4,7 @@ import (
 	"regexp"
 	"testing"
 
-	"go.neotoolkit.com/faker"
+	"github.com/neotoolkit/faker"
 )
 
 func TestFaker_UUID(t *testing.T) {
